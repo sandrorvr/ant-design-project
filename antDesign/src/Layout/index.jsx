@@ -6,6 +6,7 @@ import {FormUser} from '../Forms/User';
 import {UpdateUser} from '../Forms/UpdateUser';
 import {UserSections} from '../Sections/User';
 import {FormAbsence} from '../Forms/Absence';
+import {Scheduler} from '../Sections/Scheduler';
 
 import {FormDayOff} from '../Forms/DayOff';
 import {MenuSideBar} from './MenuSideBar';
@@ -45,6 +46,8 @@ export const LayoutPag = () => {
               <Route path='/dayoff' element={<FormDayOff />} exact />
               <Route path='/user' element={<UserSections />} exact />
               <Route path='/absence' element={<FormAbsence />} exact />
+
+              <Route path='/schedule/ew' element={<Scheduler />} exact />
             </Routes>
           </div>
         </Content>

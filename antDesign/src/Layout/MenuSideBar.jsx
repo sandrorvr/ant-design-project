@@ -9,7 +9,7 @@ function getItem(label, key, icon, children) {
 
 const ItensSideBar = [
   getItem(<Link to='/User'>User</Link>, '1', <UserOutlined /> ),
-  getItem(<Link to='/dayoff'>Day Off</Link>, '2', <DesktopOutlined />),
+  getItem(<Link to='/schedule/ew'>End Week</Link>, '2', <DesktopOutlined />),
   getItem('User', 'sub1', <UserOutlined />, [
     getItem(<Link to='/create_user'>Create</Link>, '3', <UserOutlined />),
     getItem(<Link to='/dayoff'>Day Off</Link>, '4', <DesktopOutlined />),

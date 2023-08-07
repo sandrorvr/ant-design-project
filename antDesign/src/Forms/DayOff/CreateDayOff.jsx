@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Button, Form, Input, InputNumber, TimePicker, DatePicker, Row, Select } from 'antd';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
@@ -13,7 +13,7 @@ const onChange = (time, timeString) => {
 const onFinishFailed = (errorInfo) => {
   console.log('Failed:', errorInfo);
 };
-export const CreateDayOff = ({setHaveReload}) => {
+export const CreateDayOff = ({setNewDayOff}) => {
   const [formController] = Form.useForm(); 
 
   const onFinish = async (values) => {
@@ -28,12 +28,13 @@ export const CreateDayOff = ({setHaveReload}) => {
           body: JSON.stringify(values)
         }
       );
-      console.log(JSON.stringify(values));
+      //console.log(JSON.stringify(values));
+      let wk_created = await response.json();
+      values['name'] = wk_created;
+      setNewDayOff(values);
     } catch (error) {
       console.log('Error during creation new Day Off!');
     }
-    
-    setHaveReload(true);
     formController.resetFields();
   };
 
