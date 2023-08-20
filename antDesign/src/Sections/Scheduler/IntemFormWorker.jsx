@@ -5,7 +5,7 @@ import { ContextScheduler } from './index';
 const { Option } = Select;
 
 
-export const IntemFormWorker = ({ wk }) => {
+export const IntemFormWorker = ({ wk, area }) => {
   const dataManager = useContext(ContextScheduler);
   const removeItem = (id_item) => {
     dataManager.removeItem(id_item);
@@ -17,6 +17,19 @@ export const IntemFormWorker = ({ wk }) => {
       }}
     >
       <Space>
+      <Form.Item
+          name={`area_${wk}`}
+          initialValue={area}
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+          style={{
+            display: 'inline-block',
+          }}
+        >
+        </Form.Item>
         <Form.Item
           name={`name_${wk}`}
           rules={[
