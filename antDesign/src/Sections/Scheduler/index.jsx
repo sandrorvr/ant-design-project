@@ -1,73 +1,34 @@
-import { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import { useState, createContext } from 'react';
 import { Form, Input, List, Space, Button } from 'antd';
 import { IntemFormArea } from './IntemFormArea';
+import { InsertNewArea } from './InsertNewArea';
+
+import { DataSchedulerMeneger } from './DataScheduler';
+
+export const ContextScheduler = createContext(null);
 
 export const Scheduler = () => {
-  const [dataArea, setDataArea] = useState([]);
+  const [dataScheduler, setDataScheduler] = useState([]);
   const [form] = Form.useForm();
-  const onFinish = (value) => {
-    const new_area = {
-      id: uuidv4(),
-      name_area: value['name_area']
-    };
-    setDataArea([...dataArea, new_area]);
-  }
+
 
   return (
-    <>
-      <Form
-        name='setArea'
-        onFinish={onFinish}
-      >
-        <Space>
-          <Form.Item
-            name={`name_area`}
-            rules={[
-              {
-                required: true,
-              },
-            ]}
-            style={{
-              display: 'inline-block',
-            }}
-          >
-            <Input placeholder="Insert New Area" />
-          </Form.Item>
-          <Form.Item
-            rules={[
-              {
-                required: true,
-              },
-            ]}
-            style={{
-              display: 'inline-block',
-            }}
-          >
-            <Button
-              type="primary"
-              shape="circle"
-              htmlType="submit"
-            >+
-            </Button>
-          </Form.Item>
-        </Space>
-      </Form>
-
+    <ContextScheduler.Provider value={new DataSchedulerMeneger(dataScheduler, setDataScheduler)}>
+      <InsertNewArea />
       <Form
         form={form}
       >
         <List
           bordered
-          dataSource={dataArea}
-          renderItem={(item) => (
+          dataSource={dataScheduler}
+          renderItem={(area) => (
             <List.Item>
-              <IntemFormArea />
+              <IntemFormArea id_area={area.id} name_area={area.name_area}/>
             </List.Item>
           )}
         />
       </Form>
-    </>
+    </ContextScheduler.Provider>
   );
 };
 
