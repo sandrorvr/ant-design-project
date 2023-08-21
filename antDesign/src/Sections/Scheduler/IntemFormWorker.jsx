@@ -1,14 +1,19 @@
 import { useContext } from 'react'
-import { Form, Input, Select, Space, Button } from 'antd';
+import { Form, Input, Select, Space, Button, TimePicker } from 'antd';
+import { DeleteOutlined } from '@ant-design/icons';
 import { ContextScheduler } from './index';
+import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+import { SelectScroll } from './SelectScroll';
 
+dayjs.extend(customParseFormat);
 const { Option } = Select;
 
 
 export const IntemFormWorker = ({ wk, area }) => {
   const dataManager = useContext(ContextScheduler);
-  const removeItem = (id_item) => {
-    dataManager.removeItem(id_item);
+  const removeItem = () => {
+    dataManager.removeWorker(area ,wk);
   }
   return (
     <Form.Item
@@ -25,9 +30,6 @@ export const IntemFormWorker = ({ wk, area }) => {
               required: true,
             },
           ]}
-          style={{
-            display: 'inline-block',
-          }}
         >
         </Form.Item>
         <Form.Item
@@ -37,18 +39,9 @@ export const IntemFormWorker = ({ wk, area }) => {
               required: true,
             },
           ]}
-          style={{
-            display: 'inline-block',
-          }}
+          
         >
-          <Select
-            placeholder="Select a option and change input text above"
-            allowClear
-          >
-            <Option value="male">male</Option>
-            <Option value="female">female</Option>
-            <Option value="other">other</Option>
-          </Select>
+          <SelectScroll />
         </Form.Item>
         <Form.Item
           name={`local_${wk}`}
@@ -57,14 +50,21 @@ export const IntemFormWorker = ({ wk, area }) => {
               required: true,
             },
           ]}
-          style={{
-            display: 'inline-block',
-          }}
         >
           <Input placeholder="Input birth year" />
         </Form.Item>
         <Form.Item
-          name={`time_${wk}`}
+          name={`timeStart_${wk}`}
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <TimePicker initialValues={dayjs('00:00:00', 'HH:mm:ss')} />
+        </Form.Item>
+        <Form.Item
+          name={`timeFinish_${wk}`}
           rules={[
             {
               required: true,
@@ -74,7 +74,7 @@ export const IntemFormWorker = ({ wk, area }) => {
             display: 'inline-block',
           }}
         >
-          <Input placeholder="Input birth year" />
+          <TimePicker initialValues={dayjs('00:00:00', 'HH:mm:ss')} />
         </Form.Item>
         <Form.Item
           name={`eqp_${wk}`}
@@ -83,23 +83,50 @@ export const IntemFormWorker = ({ wk, area }) => {
               required: true,
             },
           ]}
-          style={{
-            display: 'inline-block',
-          }}
         >
-          <Input placeholder="Input birth year" />
+          <Select
+            allowClear
+            placeholder="What's Equipament?"
+            style={{
+              width: '100px',
+            }}
+          >
+            <Option value="vtr">Viatura</Option>
+            <Option value="moto">Motocicleta</Option>
+            <Option value="other">Other</Option>
+          </Select>
         </Form.Item>
         <Form.Item
-          style={{
-            display: 'inline-block',
-          }}
+          name={`function_${wk}`}
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <Select
+            allowClear
+            placeholder="What's his function?"
+            defaultValue="agt"
+            style={{
+              width: '100px',
+            }}
+          >
+            <Option value="sup">Supervisor</Option>
+            <Option value="coo">Coordenador</Option>
+            <Option value="ger">Gerente</Option>
+            <Option value="agt">Agente</Option>
+          </Select>
+        </Form.Item>
+        <Form.Item
         >
           <Button
             type="primary"
             shape="circle"
             danger
-            onClick={() => removeItem()}
-          >+
+            onClick={removeItem}
+          >
+            <DeleteOutlined />
           </Button>
         </Form.Item>
       </Space>

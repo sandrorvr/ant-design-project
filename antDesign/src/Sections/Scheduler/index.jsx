@@ -20,7 +20,7 @@ export const Scheduler = () => {
       <Button
         style={{background:green.primary}}
         type="primary"
-        onClick={() => console.log(JSON.stringify(form.getFieldsValue()))}
+        onClick={() => formatData(form.getFieldsValue())}
       >SUBMIT
       </Button>
       </Space>

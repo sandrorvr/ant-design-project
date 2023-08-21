@@ -7,7 +7,6 @@ export const InsertNewArea = () => {
     const dataManager = useContext(ContextScheduler);
     const onFinish = (value) => {
         dataManager.createNewArea(value['name_area']);
-        console.log(dataManager.dataScheduler)
     };
 
     return (
