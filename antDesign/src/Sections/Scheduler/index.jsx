@@ -4,7 +4,7 @@ import {green} from '@ant-design/colors';
 import { IntemFormArea } from './IntemFormArea';
 import { InsertNewArea } from './InsertNewArea';
 
-import { DataSchedulerMeneger } from './DataScheduler';
+import { DataSchedulerMeneger, FormatData } from './DataScheduler';
 
 export const ContextScheduler = createContext(null);
 
@@ -20,7 +20,7 @@ export const Scheduler = () => {
       <Button
         style={{background:green.primary}}
         type="primary"
-        onClick={() => formatData(form.getFieldsValue())}
+        onClick={() => console.log(new FormatData(form.getFieldsValue()).format())}
       >SUBMIT
       </Button>
       </Space>

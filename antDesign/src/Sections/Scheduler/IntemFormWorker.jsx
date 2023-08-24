@@ -4,16 +4,21 @@ import { DeleteOutlined } from '@ant-design/icons';
 import { ContextScheduler } from './index';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import { SelectScroll } from './SelectScroll';
 
 dayjs.extend(customParseFormat);
 const { Option } = Select;
 
-
+const options = [];
+for (let i = 10; i < 36; i++) {
+  options.push({
+    value: i.toString(36) + i,
+    label: i.toString(36) + i,
+  });
+}
 export const IntemFormWorker = ({ wk, area }) => {
   const dataManager = useContext(ContextScheduler);
   const removeItem = () => {
-    dataManager.removeWorker(area ,wk);
+    dataManager.removeWorker(area, wk);
   }
   return (
     <Form.Item
@@ -22,7 +27,7 @@ export const IntemFormWorker = ({ wk, area }) => {
       }}
     >
       <Space>
-      <Form.Item
+        <Form.Item
           name={`area_${wk}`}
           initialValue={area}
           rules={[
@@ -39,9 +44,9 @@ export const IntemFormWorker = ({ wk, area }) => {
               required: true,
             },
           ]}
-          
+
         >
-          <SelectScroll />
+          <Input placeholder="Input birth year" />
         </Form.Item>
         <Form.Item
           name={`local_${wk}`}
@@ -51,7 +56,13 @@ export const IntemFormWorker = ({ wk, area }) => {
             },
           ]}
         >
-          <Input placeholder="Input birth year" />
+          <Select
+            placeholder="Select Name"
+            style={{
+              width: '100px',
+            }}
+            options={options}
+          />
         </Form.Item>
         <Form.Item
           name={`timeStart_${wk}`}

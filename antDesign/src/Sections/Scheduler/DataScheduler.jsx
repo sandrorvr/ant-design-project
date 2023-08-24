@@ -47,3 +47,26 @@ export class DataSchedulerMeneger{
         return this.data;
     }
 }
+
+export class FormatData{
+    constructor(data){
+        this.data = data;
+    }
+    splitFieldIDWK(value){
+        const splt = value.split('_');
+        return {
+            field:splt[0],
+            id_WK: splt[1]
+        }
+    }
+    format(){
+        return Object.entries(this.data).map((el) =>{
+            const slited = this.splitFieldIDWK(el[0])
+            return {
+                ...slited,
+                value: el[1]
+            }
+        })
+    }
+
+}
