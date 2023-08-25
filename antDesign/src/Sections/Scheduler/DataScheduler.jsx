@@ -61,12 +61,32 @@ export class FormatData{
     }
     format(){
         return Object.entries(this.data).map((el) =>{
-            const slited = this.splitFieldIDWK(el[0])
+            const slited = this.splitFieldIDWK(el[0]);
+
             return {
                 ...slited,
-                value: el[1]
+                value: slited.field === 'timeStart' || slited.field === 'timeFinish' ? el[1].format("HH:mm:ss"):el[1]
             }
         })
     }
+
+}
+
+export class Worker{
+    constructor(obj_wk){
+        this.obj_wk = obj_wk;
+        this.workerData = {};
+        this.fullWorkers = [];
+    }
+
+    isworkInData(){
+        return this.fullWorkers.includes(obj_wk.id_WK);
+    }
+
+    isAreaInData(){
+        return this.fullAreas.includes(area);
+    }
+
+
 
 }
