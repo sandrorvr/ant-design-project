@@ -51,7 +51,11 @@ export class DataSchedulerMeneger{
 export class FormatData{
     constructor(data){
         this.data = data;
+        this.workerData = [];
+        this.fullWorkers = new Set();
+        this.fullAreas = [];
     }
+
     splitFieldIDWK(value){
         const splt = value.split('_');
         return {
@@ -59,34 +63,44 @@ export class FormatData{
             id_WK: splt[1]
         }
     }
-    format(){
+    splitFields(){
         return Object.entries(this.data).map((el) =>{
             const slited = this.splitFieldIDWK(el[0]);
-
-            return {
-                ...slited,
-                value: slited.field === 'timeStart' || slited.field === 'timeFinish' ? el[1].format("HH:mm:ss"):el[1]
-            }
+            const value = slited.field === 'timeStart' || slited.field === 'timeFinish' ? el[1].format("HH:mm:ss"):el[1];
+            this.fullWorkers.add(slited.id_WK);
+            return {...slited,value}
         })
+    }
+
+    format(){
+        const splitFields = this.splitFields();
+        return [...this.fullWorkers].map((id_WK)=>{
+            let especificWK = splitFields.filter((el)=>el.id_WK === id_WK);
+            return new Worker(especificWK, id_WK).createWorker();
+        });
     }
 
 }
 
 export class Worker{
-    constructor(obj_wk){
-        this.obj_wk = obj_wk;
-        this.workerData = {};
-        this.fullWorkers = [];
+    constructor(wk_fields, id_WK){
+        this.wk_fields = wk_fields;
+        this.data = {
+            id_WK,
+            area:null,
+            name:null,
+            local:null, 
+            timeStart:null,
+            timeFinish:null,
+            eqp:null,
+            func:null
+        }
     }
 
-    isworkInData(){
-        return this.fullWorkers.includes(obj_wk.id_WK);
+    createWorker(){
+        for(let wk of this.wk_fields){
+            this.data[wk.field] = wk.value
+        }
+        return this.data;
     }
-
-    isAreaInData(){
-        return this.fullAreas.includes(area);
-    }
-
-
-
 }
