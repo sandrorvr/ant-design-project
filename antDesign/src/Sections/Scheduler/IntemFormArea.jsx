@@ -50,7 +50,7 @@ export const IntemFormArea = ({ id_area }) => {
       <TitleArea title={name_area} index_area={index_area} />
       <Col span={24}>
         {
-          data.map((rd) => <IntemFormWorker key={rd.id} wk={rd.id} area={index_area} />)
+          data.map((rd) => <IntemFormWorker key={rd.id} wk={rd.id} area={index_area} name_area={name_area} />)
         }
       </Col>
       <Button

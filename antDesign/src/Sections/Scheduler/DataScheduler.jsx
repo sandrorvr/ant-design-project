@@ -76,7 +76,7 @@ export class FormatData{
         const splitFields = this.splitFields();
         return [...this.fullWorkers].map((id_WK)=>{
             let especificWK = splitFields.filter((el)=>el.id_WK === id_WK);
-            return new Worker(especificWK, id_WK).createWorker();
+            return new Worker(especificWK, id_WK);
         });
     }
 
@@ -84,8 +84,7 @@ export class FormatData{
 
 export class Worker{
     constructor(wk_fields, id_WK){
-        this.wk_fields = wk_fields;
-        this.data = {
+        this._data = {
             id_WK,
             area:null,
             name:null,
@@ -95,12 +94,55 @@ export class Worker{
             eqp:null,
             func:null
         }
+        this.createWorker(wk_fields);
     }
 
-    createWorker(){
-        for(let wk of this.wk_fields){
+    get id(){
+        return this._data['id_WK'];
+    }
+
+    get data(){
+        return this._data;
+    }
+
+    createWorker(wk_fields){
+        for(let wk of wk_fields){
             this.data[wk.field] = wk.value
         }
-        return this.data;
+    }
+
+    checkFieldNulls(){
+        const keysNulls = Object.keys(this._data).filter((key)=>this._data[key] === '');
+        return keysNulls.length === 0 ? null: keysNulls;
+    }
+
+}
+
+export class ValidationWorkers{
+    constructor(listWorkers){
+        this.listWorkers = listWorkers;
+        this.problems = [];
+        this.validation();
+    }
+    paintFieldProblem(id_field, color=mull){
+        const field = document.getElementById(id_field);
+        field.style.border = `1px solid ${color}`
+    }
+    checkFieldNulls(work){
+        const status =  work.checkFieldNulls() === null? false : true;
+        return {
+            status,
+            fields_problem: work.checkFieldNulls()
+        }
+    }
+
+    validation(){
+        for(let work of this.listWorkers){
+            const {fields_problem:field_nulls} = this.checkFieldNulls(work);
+            let color = field_nulls != null ? 'red':'#d9d9d9'
+            this.paintFieldProblem(`name_${work.id}`, color);
+        }
     }
 }
+
+
