@@ -32,7 +32,7 @@ export const IntemFormWorker = ({ wk, area, name_area }) => {
             initialValue={name_area}
             rules={[
               {
-                required: true,
+                required: false,
               },
             ]}
           >
@@ -42,7 +42,7 @@ export const IntemFormWorker = ({ wk, area, name_area }) => {
             name={`name_${wk}`}
             rules={[
               {
-                required: true,
+                required: false,
               },
             ]}
 
@@ -53,7 +53,7 @@ export const IntemFormWorker = ({ wk, area, name_area }) => {
             name={`local_${wk}`}
             rules={[
               {
-                required: true,
+                required: false,
               },
             ]}
           >
@@ -67,9 +67,10 @@ export const IntemFormWorker = ({ wk, area, name_area }) => {
           </Form.Item>
           <Form.Item
             name={`timeStart_${wk}`}
+            initialValue={dayjs('00:00:00', 'HH:mm:ss')}
             rules={[
               {
-                required: true,
+                required: false,
               },
             ]}
           >
@@ -77,9 +78,10 @@ export const IntemFormWorker = ({ wk, area, name_area }) => {
           </Form.Item>
           <Form.Item
             name={`timeFinish_${wk}`}
+            initialValue={dayjs('00:00:00', 'HH:mm:ss')}
             rules={[
               {
-                required: true,
+                required: false,
               },
             ]}
             style={{
@@ -92,7 +94,7 @@ export const IntemFormWorker = ({ wk, area, name_area }) => {
             name={`eqp_${wk}`}
             rules={[
               {
-                required: true,
+                required: false,
               },
             ]}
           >
@@ -113,7 +115,7 @@ export const IntemFormWorker = ({ wk, area, name_area }) => {
             initialValue='agt'
             rules={[
               {
-                required: true,
+                required: false,
               },
             ]}
           >

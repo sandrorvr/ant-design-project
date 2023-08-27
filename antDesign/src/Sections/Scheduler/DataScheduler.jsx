@@ -107,7 +107,7 @@ export class Worker{
 
     createWorker(wk_fields){
         for(let wk of wk_fields){
-            this.data[wk.field] = wk.value
+            this.data[wk.field] = wk.value === undefined? '' : wk.value;
         }
     }
 
@@ -121,7 +121,7 @@ export class Worker{
 export class ValidationWorkers{
     constructor(listWorkers){
         this.listWorkers = listWorkers;
-        this.problems = [];
+        this.problems = new Set();
         this.validation();
     }
     paintFieldProblem(id_field, color=mull){
@@ -130,6 +130,7 @@ export class ValidationWorkers{
     }
     checkFieldNulls(work){
         const status =  work.checkFieldNulls() === null? false : true;
+        if(status) this.problems.add('checkFieldNulls');
         return {
             status,
             fields_problem: work.checkFieldNulls()
@@ -138,8 +139,8 @@ export class ValidationWorkers{
 
     validation(){
         for(let work of this.listWorkers){
-            const {fields_problem:field_nulls} = this.checkFieldNulls(work);
-            let color = field_nulls != null ? 'red':'#d9d9d9'
+            const {status} = this.checkFieldNulls(work);
+            let color = status ? 'red':'#d9d9d9';
             this.paintFieldProblem(`name_${work.id}`, color);
         }
     }
