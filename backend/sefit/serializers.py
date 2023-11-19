@@ -35,7 +35,7 @@ class SchedulerSerializers(serializers.ModelSerializer):
     class Meta:
         model = Scheduler
         fields = [
-            'area', 'eqp', 'func', 'local', 'name', 'timeFinish', 'timeStart'
+            'area', 'eqp', 'func', 'local', 'name', 'timeFinish', 'timeStart', 'event_date'
         ]
     def get_local(self, obj):
         return obj.local.local

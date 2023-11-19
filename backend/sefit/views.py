@@ -5,6 +5,8 @@ from rest_framework.parsers import JSONParser
 from rest_framework import status
 import io
 
+from datetime import date, datetime
+
 from .serializers import ServidoresSerializers, DayOffSerializers, SchedulerSerializers, LocalSerializers
 from .models import Servidores, DayOff, Scheduler, Local
 
@@ -49,8 +51,17 @@ class DayOffAPIView(generics.RetrieveUpdateDestroyAPIView):
 #-----------------------------------------------------
 
 class SchedulersAPIView(generics.ListCreateAPIView):
-    queryset = Scheduler.objects.all()
     serializer_class = SchedulerSerializers
+
+    def get_queryset(self):
+        print()
+        queryset = Scheduler.objects.order_by('event_date').all()
+        start_date = self.request.query_params.get('start_date', queryset.first().event_date)
+        end_date = self.request.query_params.get('end_date', queryset.last().event_date)
+        start_date = datetime.strptime(start_date, '%Y-%m-%d') if type(start_date) == str else start_date
+        end_date = datetime.strptime(end_date, '%Y-%m-%d') if type(end_date) == str else end_date
+        queryset = Scheduler.objects.filter(event_date__gte = start_date).filter(event_date__lte = end_date)
+        return queryset
     
 class SchedulerAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Scheduler.objects.all()
@@ -59,6 +70,7 @@ class SchedulerAPIView(generics.RetrieveUpdateDestroyAPIView):
 #-----------------------------------------------------
 
 class LocalsAPIView(generics.ListCreateAPIView):
+    lookup_field = 'roteiro_id'
     queryset = Local.objects.all()
     serializer_class = LocalSerializers
 
