@@ -4,7 +4,8 @@ import {green, yellow} from '@ant-design/colors';
 import { IntemFormArea } from './IntemFormArea';
 import { InsertNewArea } from './InsertNewArea';
 
-import { DataSchedulerMeneger, FormatData, ValidationWorkers } from './DataScheduler';
+import { DataSchedulerMeneger } from './DataSchedulerMenger';
+import { FormatData, ValidationWorkers } from './data/FormatData';
 
 export const ContextScheduler = createContext(null);
 
@@ -13,9 +14,14 @@ export const Scheduler = () => {
   const [form] = Form.useForm();
 
   const handleSubmit = () => {
+    const dataFormated = new FormatData(form.getFieldsValue()).getDataListOfWorkers();
+    console.log(dataFormated);
+  }
+
+  const FunctionTest = () => {
     const dataFormated = new FormatData(form.getFieldsValue()).format();
-    new ValidationWorkers(dataFormated);
-    console.log(dataFormated.map((element)=>element.data));
+    console.log(form.getFieldsValue());
+    console.log(dataFormated);
   }
 
   return (
@@ -25,7 +31,7 @@ export const Scheduler = () => {
       <Button
         style={{background: yellow.primary}}
         type="primary"
-        onClick={handleSubmit}
+        onClick={FunctionTest}
       >TEST
       </Button>
       <Button
