@@ -5,8 +5,8 @@ from rest_framework.parsers import JSONParser
 from rest_framework import status
 import io
 
-from .serializers import ServidoresSerializers, DayOffSerializers
-from .models import Servidores, DayOff
+from .serializers import ServidoresSerializers, DayOffSerializers, SchedulerSerializers, LocalSerializers
+from .models import Servidores, DayOff, Scheduler, Local
 
 #-----------------------------------------------------
 
@@ -46,3 +46,23 @@ class DayOffAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = DayOff.objects.all()
     serializer_class = DayOffSerializers()
 
+#-----------------------------------------------------
+
+class SchedulersAPIView(generics.ListCreateAPIView):
+    queryset = Scheduler.objects.all()
+    serializer_class = SchedulerSerializers
+    
+class SchedulerAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Scheduler.objects.all()
+    serializer_class = SchedulerSerializers
+
+#-----------------------------------------------------
+
+class LocalsAPIView(generics.ListCreateAPIView):
+    queryset = Local.objects.all()
+    serializer_class = LocalSerializers
+
+class LocalAPIView(generics.RetrieveUpdateDestroyAPIView):
+    lookup_field = 'roteiro_id'
+    queryset = Local.objects.all()
+    serializer_class = LocalSerializers

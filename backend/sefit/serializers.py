@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Servidores, DayOff
+from .models import Servidores, DayOff, Scheduler, Local
 class ServidoresSerializers(serializers.ModelSerializer):
     class Meta:
         model = Servidores
@@ -20,3 +20,22 @@ class DayOffSerializers(serializers.ModelSerializer):
     
     def get_name(self, obj):
         return obj.mat.name
+
+
+class LocalSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Local
+        fields = [
+            'roteiro_id', 'local'
+        ]
+
+
+class SchedulerSerializers(serializers.ModelSerializer):
+    local = serializers.SerializerMethodField()
+    class Meta:
+        model = Scheduler
+        fields = [
+            'area', 'eqp', 'func', 'local', 'name', 'timeFinish', 'timeStart'
+        ]
+    def get_local(self, obj):
+        return obj.local.local

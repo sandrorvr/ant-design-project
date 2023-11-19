@@ -1,5 +1,17 @@
 from django.db import models
 
+TYPE_FUNCTIONS = [
+    ('agt', 'AGENTE'),
+    ('coo', 'COORDENADOR'),
+    ('sup', 'SUPERVISOR'),
+]
+
+TYPE_EQP = [
+    ('vtr', 'VIATURA'),
+    ('mt', 'MOTO'),
+    ('po', 'A Pé')
+]
+
 class Servidores(models.Model):
     status = models.CharField(max_length=10, default='ativo') 
     name = models.CharField(max_length=45)
@@ -31,3 +43,23 @@ class DayOff(models.Model):
 
     def __str__(self):
         return self.dayOff
+    
+class Local(models.Model):
+    roteiro_id = models.CharField(max_length=20, primary_key=True)
+    local = models.CharField(max_length=20)
+
+    def __str__(self):
+        return f'{self.local} - {self.roteiro_id}'
+
+class Scheduler(models.Model):
+    area = models.CharField(max_length=20)
+    eqp = models.CharField(max_length=4, choices=TYPE_EQP)
+    func = models.CharField(max_length=3, choices=TYPE_FUNCTIONS)
+    local = models.ForeignKey(Local, on_delete=models.CASCADE)
+    name = models.CharField(max_length=40)
+    timeFinish = models.TimeField(null=True)
+    timeStart = models.TimeField(null=True)
+    event_date = models.DateField(null=True)
+
+
+    
