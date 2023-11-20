@@ -4,7 +4,7 @@ from .views import ServidoresAPIView, ServidorAPIView
 from .views import DayOffsAPIView, DayOffAPIView 
 from .views import SchedulersAPIView, SchedulerAPIView 
 from .views import LocalsAPIView, LocalAPIView
-from .views import SchedulersInfoAPIView, SchedulerInfoAPIView
+from .views import SchedulerWorkersAPIView, SchedulerWorkerAPIView
 
 urlpatterns = [
     path('servidores/', ServidoresAPIView.as_view()),
@@ -19,7 +19,7 @@ urlpatterns = [
     path('schedulers/<int:pk>', SchedulersAPIView.as_view()),
     path('scheduler/<int:pk>', SchedulerAPIView.as_view()),
 
-    path('schedulersInfo/', SchedulersInfoAPIView.as_view()),
+    path('schedulersInfo/', SchedulerWorkersAPIView.as_view()),
 
 
     path('locals/', LocalsAPIView.as_view()),

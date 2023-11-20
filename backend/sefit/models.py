@@ -51,7 +51,7 @@ class Local(models.Model):
     def __str__(self):
         return f'{self.local} - {self.roteiro_id}'
     
-class SchedulerInfo(models.Model):
+class Scheduler(models.Model):
     name = models.CharField(max_length=80)
     date = models.DateField()
     description = models.TextField(max_length=250)
@@ -60,12 +60,12 @@ class SchedulerInfo(models.Model):
     def __str__(self):
         return f'{self.name} - {self.date.year}'
 
-class Scheduler(models.Model):
+class SchedulerWorker(models.Model):
     area = models.CharField(max_length=20)
     eqp = models.CharField(max_length=4, choices=TYPE_EQP)
     func = models.CharField(max_length=3, choices=TYPE_FUNCTIONS)
     local = models.ForeignKey(Local, on_delete=models.CASCADE)
-    scheduler = models.ForeignKey(SchedulerInfo, on_delete=models.CASCADE)
+    scheduler = models.ForeignKey(Scheduler, on_delete=models.CASCADE)
     name = models.CharField(max_length=40)
     timeFinish = models.TimeField(null=True)
     timeStart = models.TimeField(null=True)

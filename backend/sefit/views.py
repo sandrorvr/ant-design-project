@@ -6,8 +6,8 @@ from rest_framework import status
 import io
 
 from .serializers import ServidoresSerializers, DayOffSerializers, SchedulerSerializers, \
-                         LocalSerializers, SchedulerInfoSerializers
-from .models import Servidores, DayOff, Scheduler, Local, SchedulerInfo
+                         LocalSerializers, SchedulerWorkerSerializers
+from .models import Servidores, DayOff, SchedulerWorker, Local, Scheduler
 
 #-----------------------------------------------------
 
@@ -49,14 +49,14 @@ class DayOffAPIView(generics.RetrieveUpdateDestroyAPIView):
 
 #-----------------------------------------------------
 
-class SchedulersAPIView(generics.ListCreateAPIView):
-    queryset = Scheduler.objects.all()
-    serializer_class = SchedulerSerializers
+class SchedulerWorkersAPIView(generics.ListCreateAPIView):
+    queryset = SchedulerWorker.objects.all()
+    serializer_class = SchedulerWorkerSerializers
     
     
-class SchedulerAPIView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Scheduler.objects.all()
-    serializer_class = SchedulerSerializers
+class SchedulerWorkerAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = SchedulerWorker.objects.all()
+    serializer_class = SchedulerWorkerSerializers
 
 #-----------------------------------------------------
 
@@ -72,11 +72,11 @@ class LocalAPIView(generics.RetrieveUpdateDestroyAPIView):
 
 #-----------------------------------------------------
 
-class SchedulersInfoAPIView(generics.ListCreateAPIView):
-    queryset = SchedulerInfo.objects.all()
-    serializer_class = SchedulerInfoSerializers
+class SchedulersAPIView(generics.ListCreateAPIView):
+    queryset = Scheduler.objects.all()
+    serializer_class = SchedulerSerializers
     
     
-class SchedulerInfoAPIView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = SchedulerInfo.objects.all()
-    serializer_class = SchedulerInfoSerializers
+class SchedulerAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Scheduler.objects.all()
+    serializer_class = SchedulerSerializers

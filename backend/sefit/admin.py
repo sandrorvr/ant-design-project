@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Servidores, DayOff, Scheduler, Local, SchedulerInfo
+from .models import Servidores, DayOff, Scheduler, Local, SchedulerWorker
 
 @admin.register(Servidores)
 class ServidoresAdmin(admin.ModelAdmin):
@@ -16,11 +16,11 @@ class DayOffAdmin(admin.ModelAdmin):
     list_display = ('mat','dayOff','start_date','end_date')
 
 
-@admin.register(SchedulerInfo)
+@admin.register(Scheduler)
 class SchedulerInfoAdmin(admin.ModelAdmin):
     list_display = ('name','date')
 
-@admin.register(Scheduler)
+@admin.register(SchedulerWorker)
 class SchedulerAdmin(admin.ModelAdmin):
     list_display = ('name','scheduler','area','eqp','func','local','timeFinish','timeStart')
 
