@@ -31,20 +31,22 @@ class LocalSerializers(serializers.ModelSerializer):
 
 class SchedulerSerializers(serializers.ModelSerializer):
     class Meta:
-        model = SchedulerWorker
-        fields = [
-            'name', 'description', 'timeFinish', 'timeStart'
-        ]
+        model = Scheduler
+        fields = '__all__'
 
 
 class SchedulerWorkerSerializers(serializers.ModelSerializer):
-    local = serializers.SerializerMethodField()
-    scheduler = SchedulerSerializers()
+
+    scheduler = serializers.PrimaryKeyRelatedField(
+        many=False,
+        queryset=Scheduler.objects.all()
+    )
+    local = serializers.PrimaryKeyRelatedField(
+    many=False,
+    queryset=Local.objects.all()
+    )
     class Meta:
-        model = Scheduler
-        fields = [
-            'area', 'eqp', 'func', 'local', 'name', 'timeFinish', 'timeStart','scheduler'
-        ]
-    def get_local(self, obj):
-        return obj.local.local
+        model = SchedulerWorker
+        fields = fields = '__all__'
+    
     

@@ -20,6 +20,7 @@ urlpatterns = [
     path('scheduler/<int:pk>', SchedulerAPIView.as_view()),
 
     path('schedulersInfo/', SchedulerWorkersAPIView.as_view()),
+    path('schedulersInfo/<int:pk>', SchedulerWorkersAPIView.as_view()),
 
 
     path('locals/', LocalsAPIView.as_view()),
