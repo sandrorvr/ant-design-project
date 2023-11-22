@@ -57,6 +57,7 @@ class Scheduler(models.Model):
     description = models.TextField(max_length=250)
     timeFinish = models.TimeField()
     timeStart = models.TimeField()
+
     def __str__(self):
         return f'{self.name} - {self.date.year}'
 
@@ -66,9 +67,12 @@ class SchedulerWorker(models.Model):
     func = models.CharField(max_length=3, choices=TYPE_FUNCTIONS)
     local = models.ForeignKey(Local, on_delete=models.CASCADE)
     scheduler = models.ForeignKey(Scheduler, on_delete=models.CASCADE)
-    name = models.CharField(max_length=40)
+    servidor = models.ForeignKey(Servidores, on_delete=models.CASCADE)
     timeFinish = models.TimeField(null=True)
     timeStart = models.TimeField(null=True)
+
+    def __str__(self):
+        return f'{self.servidor.mat} - {self.scheduler.name}'
     
 
 

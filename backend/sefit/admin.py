@@ -22,7 +22,7 @@ class SchedulerInfoAdmin(admin.ModelAdmin):
 
 @admin.register(SchedulerWorker)
 class SchedulerAdmin(admin.ModelAdmin):
-    list_display = ('name','scheduler','area','eqp','func','local','timeFinish','timeStart')
+    list_display = ('servidor','scheduler','area','eqp','func','local','timeFinish','timeStart')
 
 
 @admin.register(Local)

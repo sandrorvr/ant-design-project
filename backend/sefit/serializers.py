@@ -36,17 +36,28 @@ class SchedulerSerializers(serializers.ModelSerializer):
 
 
 class SchedulerWorkerSerializers(serializers.ModelSerializer):
-
+    local_content = LocalSerializers(read_only=True)
+    scheduler__content = SchedulerSerializers(read_only=True)
+    servidor__content = ServidoresSerializers(read_only=True)
+    
     scheduler = serializers.PrimaryKeyRelatedField(
         many=False,
         queryset=Scheduler.objects.all()
     )
     local = serializers.PrimaryKeyRelatedField(
-    many=False,
-    queryset=Local.objects.all()
+        many=False,
+        queryset=Local.objects.all()
+    )
+    servidor = serializers.PrimaryKeyRelatedField(
+        many= False, 
+        queryset = Servidores.objects.all()
     )
     class Meta:
         model = SchedulerWorker
-        fields = fields = '__all__'
+        fields = [
+            "id", "scheduler__content", "scheduler", 
+            "local_content", "local", "area", "eqp", 
+            "func", "servidor", "servidor_content", "timeFinish", "timeStart"
+            ]
     
     
