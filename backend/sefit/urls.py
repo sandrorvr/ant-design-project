@@ -5,6 +5,7 @@ from .views import DayOffsAPIView, DayOffAPIView
 from .views import SchedulersAPIView, SchedulerAPIView 
 from .views import LocalsAPIView, LocalAPIView
 from .views import SchedulerWorkersAPIView, SchedulerWorkerAPIView
+from .views import SchedulerTypesAPIView, SchedulerTypeAPIView
 
 urlpatterns = [
     path('servidores/', ServidoresAPIView.as_view()),
@@ -19,9 +20,11 @@ urlpatterns = [
     path('schedulers/<int:pk>', SchedulersAPIView.as_view()),
     path('scheduler/<int:pk>', SchedulerAPIView.as_view()),
 
-    path('schedulersInfo/', SchedulerWorkersAPIView.as_view()),
-    path('schedulersInfo/<int:pk>', SchedulerWorkersAPIView.as_view()),
+    path('SchedulerWorkers/', SchedulerWorkersAPIView.as_view()),
+    path('SchedulerWorkers/<int:pk>', SchedulerWorkersAPIView.as_view()),
 
+    path('SchedulerTypes/', SchedulerTypesAPIView.as_view()),
+    path('SchedulerTypes/<int:pk>', SchedulerTypesAPIView.as_view()),
 
     path('locals/', LocalsAPIView.as_view()),
     path('locals/<str:roteiro_id>', LocalsAPIView.as_view()),

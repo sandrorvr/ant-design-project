@@ -6,8 +6,8 @@ from rest_framework import status
 import io
 
 from .serializers import ServidoresSerializers, DayOffSerializers, SchedulerSerializers, \
-                         LocalSerializers, SchedulerWorkerSerializers
-from .models import Servidores, DayOff, SchedulerWorker, Local, Scheduler
+                         SchedulerLocalSerializers, SchedulerWorkerSerializers, SchedulerTypeSerializers
+from .models import Servidores, DayOff, SchedulerWorker, SchedulerLocal, Scheduler, SchedulerType
 
 #-----------------------------------------------------
 
@@ -61,14 +61,12 @@ class SchedulerWorkerAPIView(generics.RetrieveUpdateDestroyAPIView):
 #-----------------------------------------------------
 
 class LocalsAPIView(generics.ListCreateAPIView):
-    lookup_field = 'roteiro_id'
-    queryset = Local.objects.all()
-    serializer_class = LocalSerializers
+    queryset = SchedulerLocal.objects.all()
+    serializer_class = SchedulerLocalSerializers
 
 class LocalAPIView(generics.RetrieveUpdateDestroyAPIView):
-    lookup_field = 'roteiro_id'
-    queryset = Local.objects.all()
-    serializer_class = LocalSerializers
+    queryset = SchedulerLocal.objects.all()
+    serializer_class = SchedulerLocalSerializers
 
 #-----------------------------------------------------
 
@@ -80,3 +78,14 @@ class SchedulersAPIView(generics.ListCreateAPIView):
 class SchedulerAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Scheduler.objects.all()
     serializer_class = SchedulerSerializers
+
+#-----------------------------------------------------
+
+class SchedulerTypesAPIView(generics.ListCreateAPIView):
+    queryset = SchedulerType.objects.all()
+    serializer_class = SchedulerTypeSerializers
+    
+    
+class SchedulerTypeAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = SchedulerType.objects.all()
+    serializer_class = SchedulerTypeSerializers

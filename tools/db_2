@@ -1,0 +1,160 @@
+BEGIN TRANSACTION;
+CREATE TABLE IF NOT EXISTS "sefit_local" (
+	"roteiro_id"	varchar(20) NOT NULL,
+	"local"	varchar(20) NOT NULL,
+	PRIMARY KEY("roteiro_id")
+);
+CREATE TABLE IF NOT EXISTS "sefit_servidores" (
+	"status"	varchar(10) NOT NULL,
+	"name"	varchar(45) NOT NULL,
+	"mat"	integer NOT NULL,
+	"email"	varchar(254),
+	"genere"	varchar(1) NOT NULL,
+	"personal_cell"	varchar(11) NOT NULL,
+	"work_cell"	varchar(11) NOT NULL,
+	"office"	varchar(20) NOT NULL,
+	"begin_hour"	time NOT NULL,
+	"exit_hour"	time NOT NULL,
+	"admission"	date,
+	"gp"	varchar(10),
+	"cpf"	integer NOT NULL,
+	"cnh"	integer NOT NULL,
+	"cat_cnh"	varchar(2),
+	"district"	varchar(30),
+	"city"	varchar(30),
+	PRIMARY KEY("mat")
+);
+CREATE TABLE IF NOT EXISTS "sefit_typescheduler" (
+	"id"	integer NOT NULL,
+	"name"	varchar(80) NOT NULL,
+	"description"	text NOT NULL,
+	PRIMARY KEY("id" AUTOINCREMENT)
+);
+CREATE TABLE IF NOT EXISTS "django_session" (
+	"session_key"	varchar(40) NOT NULL,
+	"session_data"	text NOT NULL,
+	"expire_date"	datetime NOT NULL,
+	PRIMARY KEY("session_key")
+);
+INSERT INTO "sefit_local" VALUES ('101','terreiro de jesus');
+INSERT INTO "sefit_local" VALUES ('102','sete portas');
+INSERT INTO "sefit_local" VALUES ('103','dique do Tororo');
+INSERT INTO "sefit_local" VALUES ('104','campo Grande');
+INSERT INTO "sefit_local" VALUES ('105','codesal - bonocô');
+INSERT INTO "sefit_local" VALUES ('106','Club Espanhol');
+INSERT INTO "sefit_local" VALUES ('107','Farol da Barra');
+INSERT INTO "sefit_local" VALUES ('201','Rodoviária');
+INSERT INTO "sefit_local" VALUES ('202','Hiper Posto');
+INSERT INTO "sefit_local" VALUES ('203','Parque da Cidade');
+INSERT INTO "sefit_local" VALUES ('204','Pq. De Exposições');
+INSERT INTO "sefit_local" VALUES ('232','UNEB');
+INSERT INTO "sefit_local" VALUES ('301','Jd. Alah');
+INSERT INTO "sefit_local" VALUES ('302','MULTI SHOPPING');
+INSERT INTO "sefit_local" VALUES ('303','Barraca Da Pipa');
+INSERT INTO "sefit_local" VALUES ('401','Rotula do Abacaxi');
+INSERT INTO "sefit_local" VALUES ('402','São Joaquim');
+INSERT INTO "sefit_local" VALUES ('501','São Thomé de Paripe');
+INSERT INTO "sefit_local" VALUES ('502','Tubarão');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Miss Irene Green',1267908,'ShanahanShanahan@yahoo.com','m','86763437227','81314204045','gerente','07:00:00','19:00:00','2019-04-20','ii',77893205534,61387232950,'A','lauro de freitas','lauro de freitas');
+INSERT INTO "sefit_servidores" VALUES ('emprestado','Veronica Shanahan',1292425,'Thomas@yahoo.com.br','f','78691693690','39531912297','agt transito','05:00:00','17:00:00','2007-09-26','iv',34270405952,42261270447,'B','salvador','lauro de freitas');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Johnnie Douglas Jr.',1303638,'JohannaMurray@gmail.com','m','29274949329','71184242021','gerente','05:00:00','17:00:00','2016-09-03','i',50000177900,79430940598,'A','feira de santana','salvador');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Wesley Padberg',1324104,'JoseJose@gmail.com','f','70511567288','62966569964','coordenador','06:00:00','18:00:00','2016-09-21','ii',58135876575,19320042032,'A','lauro de freitas','salvador');
+INSERT INTO "sefit_servidores" VALUES ('l_medica','Ms. Dolores Nolan',1362554,'Sipes@yahoo.com','f','59043041770','97703967097','gerente','08:00:00','20:00:00','2016-08-20','ii',71736719968,93910268090,'A','lauro de freitas','salvador');
+INSERT INTO "sefit_servidores" VALUES ('l_premio','Johanna Murray',1385581,'Kiara@yahoo.com.br','f','69193124003','44126767660','gerente','07:00:00','19:00:00','2004-07-10','iii',18881030708,54262434235,'B','feira de santana','salvador');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Sherri Deckow',1393505,'LeighLeigh@yahoo.com','m','67480522788','34160737377','gerente','06:00:00','18:00:00','2009-09-11','iii',84137185958,95915076660,'D','lauro de freitas','salvador');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Miss Irene Green',1409454,'MarlonMarlon@yahoo.com','m','29498042579','44654116024','gerente','06:00:00','18:00:00','2015-05-12','iv',90548019919,80673821579,'E','feira de santana','lauro de freitas');
+INSERT INTO "sefit_servidores" VALUES ('exonerado','Mia Jacobs',1456615,'Zelenia@gmail.com','f','11546785821','44585824185','coordenador','06:00:00','18:00:00','2018-10-23','iii',21514018272,92007604987,'E','lauro de freitas','feira de santana');
+INSERT INTO "sefit_servidores" VALUES ('exonerado','Ruben Powlowski',1488309,'OwenZelenia@yahoo.com','m','34217198464','58541527054','administrativo','07:00:00','19:00:00','2012-04-09','i',56753366998,48112058343,'A','salvador','salvador');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Ruby Parisian',1838210,'Homenick@yahoo.com.br','f','50289914840','36812960859','agt transito','05:00:00','17:00:00','2006-01-15','iv',18971812574,18572922771,'E','feira de santana','salvador');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Thomas Yost-Lynch',1922924,'Rich@yahoo.com.br','m','30878424980','74167827799','gerente','05:00:00','17:00:00','2022-09-17','i',85512838814,89164402364,'A','lauro de freitas','salvador');
+INSERT INTO "sefit_servidores" VALUES ('emprestado','Glenn Toy',1932766,'ZeleniaOwen@gmail.com','f','49416286192','42499308588','coordenador','07:00:00','19:00:00','2006-10-23','iii',71008669571,95180581198,'B','feira de santana','salvador');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Jose McDermott',2127604,'MiaMia@yahoo.com','m','21769205689','72841899785','coordenador','07:00:00','19:00:00','2007-05-07','iv',42445605450,53437910611,'B','salvador','salvador');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Kiara Rich',2213895,'Thomas@gmail.com','f','34471441951','75514420115','coordenador','07:00:00','19:00:00','2003-02-16','iii',88759075104,88653446782,'AB','lauro de freitas','lauro de freitas');
+INSERT INTO "sefit_servidores" VALUES ('l_premio','Ms. Dolores Nolan',2221931,'Sherri@yahoo.com','f','78837629191','75997585458','administrativo','07:00:00','19:00:00','2004-10-08','i',49623694089,31052388804,'A','salvador','salvador');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Ruben Powlowski',2310126,'Shawna@yahoo.com.br','f','30507401472','16400772364','gerente','07:00:00','19:00:00','2015-07-10','ii',88321124684,19135539267,'A','lauro de freitas','lauro de freitas');
+INSERT INTO "sefit_servidores" VALUES ('emprestado','Natasha Homenick',2351397,'JacobsMia@yahoo.com.br','f','24668029175','94942257003','administrativo','05:00:00','17:00:00','2016-04-06','iv',82977960645,88737929711,'C','feira de santana','salvador');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Shawna Robel',2414373,'Lorenzo@gmail.com','f','23603330797','18728745340','gerente','07:00:00','19:00:00','2012-05-27','iv',27410368551,47981657678,'E','salvador','lauro de freitas');
+INSERT INTO "sefit_servidores" VALUES ('emprestado','Leigh Raymond',2470582,'Owen@yahoo.com.br','m','72865476117','12613510474','administrativo','06:00:00','18:00:00','2009-09-17','ii',34308834945,72218602879,'AB','salvador','salvador');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Wesley Padberg',2480819,'MarlonSipes@yahoo.com.br','m','49278412423','27341334494','gerente','05:00:00','17:00:00','2023-09-24','ii',17430752905,34779089593,'E','salvador','feira de santana');
+INSERT INTO "sefit_servidores" VALUES ('emprestado','Jose McDermott',2612446,'GreenGreenIrene@yahoo.com','m','39808029572','93837087497','agt transito','07:00:00','19:00:00','2018-11-04','ii',98066911038,73385105663,'B','salvador','salvador');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Everett Murphy DDS',2698393,'Jose@yahoo.com.br','f','48147173731','56498150439','administrativo','05:00:00','17:00:00','2020-11-14','iv',63502210321,66983357870,'E','lauro de freitas','salvador');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Miss Irene Green',2768299,'RobelShawna@gmail.com','f','77457663891','82696868481','gerente','08:00:00','20:00:00','2023-08-23','iv',49293093369,95759703328,'A','feira de santana','lauro de freitas');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Marlon Sipes',2941915,'JoseMcDermott@gmail.com','m','19447182008','94031163242','agt transito','06:00:00','18:00:00','2008-04-15','iii',57947427966,98655816075,'E','lauro de freitas','salvador');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Ruben Powlowski',3009493,'EverettDDS@yahoo.com','m','33234163785','89411838809','agt transito','05:00:00','17:00:00','2007-05-22','i',91553743402,36139555350,'A','lauro de freitas','salvador');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Jose McDermott',3220671,'Hashim@gmail.com','f','58013148113','62676771947','supervisor','08:00:00','20:00:00','2019-02-10','iii',71443281822,56337596468,'A','feira de santana','salvador');
+INSERT INTO "sefit_servidores" VALUES ('emprestado','Lorenzo Jacobson',3258307,'ShanahanShanahan@yahoo.com','m','18767248477','17416071413','supervisor','06:00:00','18:00:00','2023-12-23','iii',12530534212,34568175305,'E','feira de santana','lauro de freitas');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Marlon Sipes',3335483,'RubenRuben@gmail.com','f','31292810310','53354172641','administrativo','06:00:00','18:00:00','2023-06-04','iv',11431581047,24759995704,'A','feira de santana','salvador');
+INSERT INTO "sefit_servidores" VALUES ('exonerado','Thomas Yost-Lynch',3455913,'Miss@gmail.com','f','27413316701','28024166598','agt transito','08:00:00','20:00:00','2005-10-06','iii',16059995072,80949274983,'C','feira de santana','feira de santana');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Lorenzo Jacobson',3543900,'Sherri@yahoo.com.br','f','11898898779','88690833227','gerente','05:00:00','17:00:00','2022-04-13','ii',62616754456,22719366435,'B','feira de santana','lauro de freitas');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Glenn Toy',3901866,'Dolores@yahoo.com.br','f','11638854122','84451397385','supervisor','07:00:00','19:00:00','2003-03-23','iii',90081724697,18912184843,'A','salvador','salvador');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Natasha Homenick',3971265,'ShawnaShawna@yahoo.com.br','f','48283785075','11167737511','coordenador','07:00:00','19:00:00','2003-12-08','i',17527824714,75834110997,'A','lauro de freitas','feira de santana');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Ruben Powlowski',4049326,'JoseMcDermott@gmail.com','f','26102333523','50333730070','agt transito','08:00:00','20:00:00','2007-04-19','iv',15669118548,32939146568,'A','lauro de freitas','salvador');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Elmer Dietrich',4231252,'Melanie@yahoo.com','m','81516622711','11208849394','coordenador','08:00:00','20:00:00','2015-01-25','ii',90642103327,13259791275,'A','lauro de freitas','salvador');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Thomas Yost-Lynch',4278756,'Elmer@yahoo.com','f','71426911953','26286513435','coordenador','07:00:00','19:00:00','2021-01-24','iii',28073633751,24522302229,'B','feira de santana','salvador');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Glenn Toy',4381685,'Kiara@yahoo.com','f','84955351681','29091509802','supervisor','07:00:00','19:00:00','2011-02-27','ii',52953095094,72998401250,'E','salvador','salvador');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Johnnie Douglas Jr.',4415476,'DeckowSherri@gmail.com','f','35285019049','90110065513','administrativo','08:00:00','20:00:00','2009-09-02','iv',14929121763,67436958134,'A','salvador','salvador');
+INSERT INTO "sefit_servidores" VALUES ('l_medica','Ms. Dolores Nolan',4592004,'MurrayMurray@yahoo.com','f','41657518878','38505019395','agt transito','05:00:00','17:00:00','2020-04-22','ii',29753804683,40544808695,'A','lauro de freitas','lauro de freitas');
+INSERT INTO "sefit_servidores" VALUES ('emprestado','Veronica Shanahan',4602160,'Parisian@yahoo.com.br','m','90196919717','63051903882','gerente','07:00:00','19:00:00','2005-11-11','i',50414332699,56902360616,'B','salvador','lauro de freitas');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Veronica Shanahan',4679808,'GreenIreneIrene@yahoo.com','f','26559109610','89710715324','coordenador','08:00:00','20:00:00','2013-07-08','ii',46437001699,54152840684,'B','feira de santana','salvador');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Glenn Toy',4715140,'Robel@gmail.com','f','72204894236','48066880423','agt transito','08:00:00','20:00:00','2022-05-22','i',65899989427,57903053618,'A','feira de santana','feira de santana');
+INSERT INTO "sefit_servidores" VALUES ('l_medica','Ruben Powlowski',4726950,'Mia@yahoo.com','f','58488270883','21041254109','gerente','06:00:00','18:00:00','2003-09-22','ii',89467055399,86290380444,'A','salvador','lauro de freitas');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Zelenia Owen',4798330,'Rich@gmail.com','m','77520523001','73464047146','gerente','08:00:00','20:00:00','2016-03-09','i',56640218438,90441818402,'A','salvador','lauro de freitas');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Johanna Murray',4830913,'Dietrich@yahoo.com','f','48629765735','38541407100','agt transito','05:00:00','17:00:00','2001-10-24','iv',21686664032,71714450175,'A','lauro de freitas','lauro de freitas');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Natalie Considine',4834488,'GibsonGibsonGibson@gmail.com','m','35368244956','54916244426','gerente','05:00:00','17:00:00','2017-06-02','iv',50496813297,56183439054,'B','feira de santana','feira de santana');
+INSERT INTO "sefit_servidores" VALUES ('l_medica','Leigh Raymond',4923142,'RichRich@gmail.com','m','29296766306','23443057862','supervisor','07:00:00','19:00:00','2016-11-23','i',84413057438,57502641510,'A','salvador','feira de santana');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Johnnie Douglas Jr.',4938383,'Jr.JohnnieJohnnie@yahoo.com.br','m','93399914309','86162897642','supervisor','05:00:00','17:00:00','2008-03-09','i',58289922440,18966133880,'B','salvador','salvador');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Kiara Rich',4945917,'MiaJacobs@yahoo.com','m','80220032259','78523644371','agt transito','05:00:00','17:00:00','2004-01-09','i',53822373292,65807284919,'B','feira de santana','lauro de freitas');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Ms. Dolores Nolan',4958242,'VeronicaVeronica@yahoo.com.br','m','48709067198','30420926884','coordenador','05:00:00','17:00:00','2018-07-12','iii',61981701763,58966511394,'A','lauro de freitas','salvador');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Shawna Robel',5047194,'Glenn@gmail.com','m','66678369739','78778347689','coordenador','05:00:00','17:00:00','2008-08-13','ii',39735825052,39683224718,'B','salvador','salvador');
+INSERT INTO "sefit_servidores" VALUES ('emprestado','Leigh Raymond',5061076,'IreneGreenMiss@gmail.com','m','96079892679','17907096755','supervisor','06:00:00','18:00:00','2010-05-17','iii',23755502046,18762701269,'C','feira de santana','lauro de freitas');
+INSERT INTO "sefit_servidores" VALUES ('l_premio','Natasha Homenick',5153134,'ShawnaShawna@yahoo.com','m','50147013419','52752924562','administrativo','07:00:00','19:00:00','2011-09-01','i',37664062410,27095169949,'B','feira de santana','lauro de freitas');
+INSERT INTO "sefit_servidores" VALUES ('l_medica','Jose McDermott',5298853,'MurrayMurray@gmail.com','f','53166357597','65645152706','agt transito','05:00:00','17:00:00','2010-09-18','iii',74428499198,81696710439,'B','feira de santana','salvador');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Elmer Dietrich',5434841,'Yost-Lynch@yahoo.com.br','m','94189803374','11904971086','gerente','08:00:00','20:00:00','2022-08-27','iv',78675360770,66794186930,'A','lauro de freitas','salvador');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Miss Irene Green',5561517,'Ruby@yahoo.com','m','84778508017','96528289016','supervisor','08:00:00','20:00:00','2010-02-09','ii',54418951886,84990333796,'B','salvador','feira de santana');
+INSERT INTO "sefit_servidores" VALUES ('exonerado','Miss Irene Green',5586127,'RichRich@yahoo.com.br','m','26901910503','83826724597','agt transito','06:00:00','18:00:00','2010-04-01','iii',73949790880,83147540656,'A','salvador','salvador');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Thomas Yost-Lynch',5659542,'NatashaNatasha@yahoo.com','f','61759690742','98739156361','gerente','08:00:00','20:00:00','2004-04-13','ii',75592440194,91408063707,'A','lauro de freitas','feira de santana');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Johnnie Douglas Jr.',5665078,'ShanahanVeronica@yahoo.com.br','m','14181758960','19596158501','supervisor','05:00:00','17:00:00','2008-01-18','iv',19636905223,11987599616,'B','salvador','feira de santana');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Ruby Parisian',5747245,'McDermott@yahoo.com','f','93790585028','50187383071','administrativo','08:00:00','20:00:00','2015-05-04','i',82180420399,57491789833,'B','salvador','lauro de freitas');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Hashim Sutton',5747835,'MiaMia@yahoo.com','m','85493271892','19467521337','gerente','06:00:00','18:00:00','2015-07-14','i',25059939132,96978510928,'A','feira de santana','feira de santana');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Veronica Shanahan',5800630,'Irene@yahoo.com.br','f','49290279162','50387574566','administrativo','08:00:00','20:00:00','2006-02-27','i',62858187127,97168596539,'B','lauro de freitas','salvador');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Ruby Parisian',5831775,'KiaraRich@gmail.com','m','46786296203','60919736133','administrativo','08:00:00','20:00:00','2000-11-04','iii',99342629234,32104713907,'AB','salvador','salvador');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Sherri Deckow',5965496,'Robel@yahoo.com','m','95812939048','48168427329','agt transito','06:00:00','18:00:00','2002-08-17','ii',57567288549,11789007854,'A','feira de santana','lauro de freitas');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Wesley Padberg',5965868,'Ms.Ms.Dolores@gmail.com','f','22786490410','71347230885','coordenador','05:00:00','17:00:00','2012-07-16','iv',65122795065,91619472234,'A','feira de santana','feira de santana');
+INSERT INTO "sefit_servidores" VALUES ('l_premio','Shawna Robel',6108326,'Ruby@yahoo.com','f','51785236871','27980670270','coordenador','06:00:00','18:00:00','2003-01-27','iv',16485657957,37212844308,'C','feira de santana','salvador');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Thomas Yost-Lynch',6165083,'ElmerDietrich@gmail.com','m','94692922440','56384371528','agt transito','08:00:00','20:00:00','2000-06-10','ii',92388324507,40987171423,'A','feira de santana','feira de santana');
+INSERT INTO "sefit_servidores" VALUES ('l_premio','Kiara Rich',6310432,'DietrichElmer@gmail.com','f','68173338218','65452396156','supervisor','06:00:00','18:00:00','2010-12-11','i',65457174671,39272383345,'B','lauro de freitas','lauro de freitas');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Natalie Considine',6384302,'IreneIrene@yahoo.com.br','f','79961980167','25686021889','administrativo','05:00:00','17:00:00','2019-01-19','iv',66541745220,93788581609,'D','lauro de freitas','lauro de freitas');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Leigh Raymond',6693269,'Yost-Lynch@yahoo.com.br','m','97790185099','95990799522','administrativo','06:00:00','18:00:00','2014-03-27','i',39875590908,37534664763,'AB','lauro de freitas','salvador');
+INSERT INTO "sefit_servidores" VALUES ('l_medica','Natasha Homenick',6749313,'Mia@yahoo.com','f','47062045851','77792317659','administrativo','05:00:00','17:00:00','2014-09-18','ii',82725389350,86953700254,'A','feira de santana','lauro de freitas');
+INSERT INTO "sefit_servidores" VALUES ('l_premio','Jose McDermott',6839164,'Wesley@yahoo.com.br','f','12319117185','38988285670','coordenador','06:00:00','18:00:00','2000-06-05','i',58673427708,27973638263,'C','salvador','lauro de freitas');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Marlon Sipes',6875976,'Parisian@yahoo.com','f','71398157985','71985527487','agt transito','08:00:00','20:00:00','2021-09-17','iii',41455952440,27318805023,'A','feira de santana','feira de santana');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Ruben Powlowski',6893987,'McDermottJose@yahoo.com','m','39768739170','23867121362','coordenador','07:00:00','19:00:00','2008-02-16','iii',89298910407,34175631684,'C','lauro de freitas','feira de santana');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Leigh Raymond',6944521,'Homenick@yahoo.com.br','m','19676516863','22858354057','supervisor','06:00:00','18:00:00','2006-05-25','ii',68799805177,27993030043,'AB','feira de santana','salvador');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Johanna Murray',6967512,'EverettMurphyEverett@gmail.com','m','88747914396','83604669681','administrativo','05:00:00','17:00:00','2011-04-22','iv',44905807917,89017006239,'C','salvador','feira de santana');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Glenn Toy',7035159,'NatalieConsidine@yahoo.com.br','f','92913884229','55074434534','gerente','08:00:00','20:00:00','2023-05-08','iv',28389923991,26904488521,'B','salvador','feira de santana');
+INSERT INTO "sefit_servidores" VALUES ('emprestado','Ruben Powlowski',7134089,'Considine@yahoo.com','m','27514507545','61018974721','administrativo','08:00:00','20:00:00','2019-02-14','i',53849781480,79717337919,'A','salvador','lauro de freitas');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Shawna Robel',7268891,'SipesSipes@gmail.com','f','28264436778','51472647639','agt transito','07:00:00','19:00:00','2014-10-16','ii',40889107550,24206741542,'A','lauro de freitas','salvador');
+INSERT INTO "sefit_servidores" VALUES ('l_medica','Ms. Dolores Nolan',7409763,'Kiara@yahoo.com.br','m','83782685401','24768169746','agt transito','08:00:00','20:00:00','2004-05-24','i',69181122292,15441909781,'A','feira de santana','salvador');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Mia Jacobs',7440897,'PadbergPadberg@yahoo.com.br','m','72601986272','67287239646','coordenador','05:00:00','17:00:00','2006-09-02','iii',55062660824,66311014788,'B','salvador','feira de santana');
+INSERT INTO "sefit_servidores" VALUES ('exonerado','Veronica Shanahan',7734693,'Ms.NolanNolan@yahoo.com','m','89541613458','36264846289','gerente','06:00:00','18:00:00','2009-04-09','i',85588756867,58766812349,'A','feira de santana','salvador');
+INSERT INTO "sefit_servidores" VALUES ('l_premio','Ruben Powlowski',8092229,'Elmer@yahoo.com','m','17347602355','56779239163','supervisor','06:00:00','18:00:00','2017-05-25','iii',23123135994,61055164743,'C','lauro de freitas','feira de santana');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Ruby Parisian',8107138,'ShawnaShawna@gmail.com','f','71519807322','15533874894','gerente','08:00:00','20:00:00','2009-05-07','iv',44751486083,58580073324,'B','feira de santana','salvador');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Lorenzo Jacobson',8107349,'RubenPowlowski@yahoo.com','f','97769463950','45968644677','supervisor','07:00:00','19:00:00','2011-12-13','i',89792024158,60994729770,'A','salvador','feira de santana');
+INSERT INTO "sefit_servidores" VALUES ('exonerado','Mia Jacobs',8605219,'Wesley@yahoo.com','m','15344650246','31115770888','gerente','08:00:00','20:00:00','2019-05-09','iii',46294807716,46874681145,'A','lauro de freitas','lauro de freitas');
+INSERT INTO "sefit_servidores" VALUES ('exonerado','Zelenia Owen',8873006,'LorenzoLorenzo@yahoo.com','f','52262805731','62850216647','supervisor','06:00:00','18:00:00','2000-10-15','iii',41484626022,47422605611,'A','lauro de freitas','salvador');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Everett Murphy DDS',8947207,'Veronica@gmail.com','m','18755188064','66807809692','supervisor','07:00:00','19:00:00','2016-05-09','iv',29046645444,88792325375,'A','feira de santana','salvador');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Veronica Shanahan',9010898,'Murray@gmail.com','m','74266124166','78647163958','coordenador','06:00:00','18:00:00','2001-04-04','iv',51378776021,14079859151,'B','feira de santana','lauro de freitas');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Johnnie Douglas Jr.',9100305,'Kiara@yahoo.com','m','88778144159','70109162542','gerente','05:00:00','17:00:00','2000-02-18','iii',68936680874,47859303350,'D','feira de santana','lauro de freitas');
+INSERT INTO "sefit_servidores" VALUES ('l_medica','Marlon Sipes',9156729,'Jacobs@yahoo.com.br','m','40510517932','33827662785','supervisor','08:00:00','20:00:00','2001-10-23','iii',87501364117,87000574027,'A','salvador','feira de santana');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Johanna Murray',9257826,'Ruben@gmail.com','f','67980783238','75360207985','administrativo','07:00:00','19:00:00','2008-06-13','ii',32066887354,53827092507,'A','feira de santana','feira de santana');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Sherri Deckow',9272829,'Natasha@yahoo.com.br','f','61908237556','24685216898','coordenador','07:00:00','19:00:00','2016-11-13','iii',37384744110,17880268283,'A','salvador','feira de santana');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Johnnie Douglas Jr.',9287401,'MurrayJohanna@yahoo.com.br','f','37430379546','53920383387','gerente','08:00:00','20:00:00','2004-02-07','i',47537732119,20288694362,'A','feira de santana','salvador');
+INSERT INTO "sefit_servidores" VALUES ('l_premio','Everett Murphy DDS',9339149,'Toy@gmail.com','f','32613716685','60263814845','administrativo','08:00:00','20:00:00','2018-02-24','ii',40700099436,66810608312,'B','lauro de freitas','lauro de freitas');
+INSERT INTO "sefit_servidores" VALUES ('ativo','Sherri Deckow',9644389,'Sipes@gmail.com','m','22716112676','63721016475','coordenador','06:00:00','18:00:00','2008-05-09','ii',80720645746,19369702504,'AB','lauro de freitas','feira de santana');
+INSERT INTO "sefit_servidores" VALUES ('emprestado','Veronica Shanahan',9747014,'SherriDeckow@yahoo.com.br','f','41956611262','23305503662','supervisor','07:00:00','19:00:00','2000-07-14','iii',32514388403,40039365563,'D','salvador','lauro de freitas');
+INSERT INTO "sefit_typescheduler" VALUES (1,'final de semana','escala operacional de final de semana');
+INSERT INTO "django_session" VALUES ('huee2h9ahpeqwof2oz40efttw3kgmhia','.eJxVjL0OwjAQg98lM4rIDylhZOcZorvcHSmgVGraCfHupFIHGCxZ_my_VYJ1KWltPKeR1EUZdfjNEPKT6wboAfU-6TzVZR5RbxW906ZvE_Hrunf_Dgq00tfBGulC8AEwBsYcjWcvwoRWfHSYj344d0s2Dyh4cj4zOBLEENipzxcABTkc:1r5tj2:kAOBQYxa-w0968vAp3S-y_TnbRG1ULNuwsbWqsC4bds','2023-12-06 20:21:32.440854');
+CREATE INDEX IF NOT EXISTS "django_session_expire_date_a5c62663" ON "django_session" (
+	"expire_date"
+);
+COMMIT;

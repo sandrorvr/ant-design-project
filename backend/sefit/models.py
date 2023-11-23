@@ -43,36 +43,43 @@ class DayOff(models.Model):
 
     def __str__(self):
         return self.dayOff
+
+class SchedulerType(models.Model):
+    name = models.CharField(max_length=80)
+    description = models.TextField(max_length=250)
+    def __str__(self):
+        return f'{self.name}'
     
-class Local(models.Model):
-    roteiro_id = models.CharField(max_length=20, primary_key=True)
+class SchedulerLocal(models.Model):
+    area = models.CharField(max_length=20, null=True, blank=True)
     local = models.CharField(max_length=20)
+    typeScheduler = models.ForeignKey(SchedulerType, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.local} - {self.roteiro_id}'
+        return f'{self.local} - {self.area} - {self.typeScheduler.name}'
+
     
 class Scheduler(models.Model):
-    name = models.CharField(max_length=80)
+    typeScheduler = models.ForeignKey(SchedulerType, on_delete=models.CASCADE)
     date = models.DateField()
-    description = models.TextField(max_length=250)
+    obs = models.TextField(max_length=500, null=True, blank=True)
     timeFinish = models.TimeField()
     timeStart = models.TimeField()
 
     def __str__(self):
-        return f'{self.name} - {self.date.year}'
+        return f'{self.typeScheduler.name} - {self.date.year}'
 
 class SchedulerWorker(models.Model):
-    area = models.CharField(max_length=20)
     eqp = models.CharField(max_length=4, choices=TYPE_EQP)
     func = models.CharField(max_length=3, choices=TYPE_FUNCTIONS)
-    local = models.ForeignKey(Local, on_delete=models.CASCADE)
+    local = models.ForeignKey(SchedulerLocal, on_delete=models.CASCADE)
     scheduler = models.ForeignKey(Scheduler, on_delete=models.CASCADE)
     servidor = models.ForeignKey(Servidores, on_delete=models.CASCADE)
     timeFinish = models.TimeField(null=True)
     timeStart = models.TimeField(null=True)
 
     def __str__(self):
-        return f'{self.servidor.mat} - {self.scheduler.name}'
+        return f'{self.servidor.mat} - {self.scheduler.typeScheduler.name}'
     
 
 
