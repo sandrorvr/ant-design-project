@@ -15,7 +15,7 @@ for (let i = 10; i < 36; i++) {
     label: i.toString(36) + i,
   });
 }
-export const IntemFormWorker = ({ wk, area, name_area }) => {
+export const IntemFormWorker = ({ wk, area, name_area, locals }) => {
   const dataManager = useContext(ContextScheduler);
   const removeItem = () => {
     dataManager.removeWorker(area, wk);
@@ -62,8 +62,18 @@ export const IntemFormWorker = ({ wk, area, name_area }) => {
               style={{
                 width: '100px',
               }}
-              options={options}
-            />
+            >
+              {locals.map((e) => {
+                return <Select.Option
+
+                  key={e.id}
+                  value={e.id}
+                >
+                  {e.local}
+                </Select.Option>
+              })}
+            </Select>
+            
           </Form.Item>
           <Form.Item
             name={`timeStart_${wk}`}

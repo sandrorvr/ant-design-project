@@ -3,7 +3,7 @@ import { Form, Select, Space, Button } from 'antd';
 import { ContextScheduler } from './index';
 
 
-export const InsertNewArea = ({typeOfScheduler}) => {
+export const InsertNewArea = ({typeOfScheduler, setSchedulerLocalByArea}) => {
     const [form] = Form.useForm();
     const dataManager = useContext(ContextScheduler);
     const [schedulerLocal, setSchedulerLocal] = useState([])
@@ -43,6 +43,7 @@ export const InsertNewArea = ({typeOfScheduler}) => {
                 >
                     <Select
                         style={{ width: '100%' }}
+                        onChange={(value)=>{setSchedulerLocalByArea(schedulerLocal.filter((e)=>e.area == value))}}
                     >
                         {uniqueAreas.map((tp,index) => {
                             return <Select.Option

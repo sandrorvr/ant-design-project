@@ -14,7 +14,8 @@ export const ContextScheduler = createContext(null);
 
 export const Scheduler = () => {
   const [dataScheduler, setDataScheduler] = useState([]);
-  const [schedulerLocal, setSchedulerLocal] = useState(null);
+  const [schedulerTypeNumber, setSchedulerTypeNumber] = useState(null);
+  const [schedulerLocalByArea, setSchedulerLocalByArea] = useState([]);
   const [schedulerTypes, setSchedulerTypes] = useState([]);
   const [form] = Form.useForm();
   const [formConfigurations] = Form.useForm();
@@ -49,7 +50,7 @@ export const Scheduler = () => {
             }}
           >
             <Select
-              onChange={() => setSchedulerLocal(formConfigurations.getFieldValue('type_scheduler'))}
+              onChange={() => setSchedulerTypeNumber(formConfigurations.getFieldValue('type_scheduler'))}
             >
               {schedulerTypes.map((tp) => {
                 return <Select.Option
@@ -77,7 +78,7 @@ export const Scheduler = () => {
         >SUBMIT
         </Button>
       </Space>
-      <InsertNewArea typeOfScheduler={schedulerLocal} />
+      <InsertNewArea typeOfScheduler={schedulerTypeNumber} setSchedulerLocalByArea={setSchedulerLocalByArea}/>
       <Form
         form={form}
       >
@@ -86,7 +87,11 @@ export const Scheduler = () => {
           dataSource={dataScheduler}
           renderItem={(area) => (
             <List.Item>
-              <IntemFormArea id_area={area.id} name_area={area.name_area} />
+              <IntemFormArea 
+                id_area={area.id} 
+                name_area={area.name_area} 
+                locals={schedulerLocalByArea}
+              />
             </List.Item>
           )}
         />

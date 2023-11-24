@@ -34,13 +34,14 @@ export const TitleArea = ({ title, index_area }) => {
   );
 };
 
-export const IntemFormArea = ({ id_area }) => {
+export const IntemFormArea = ({ id_area, locals}) => {
   const dataManager = useContext(ContextScheduler);
   const index_area = dataManager.getindexAreaByID(id_area)
   const data = dataManager.dataScheduler[index_area]['workers'];
   const name_area = dataManager.dataScheduler[index_area]['name_area'];
   const addNewWorker = () => {
     dataManager.createNewWorker(id_area);
+    console.log(locals)
   }
 
   return (
@@ -50,7 +51,7 @@ export const IntemFormArea = ({ id_area }) => {
       <TitleArea title={name_area} index_area={index_area} />
       <Col span={24}>
         {
-          data.map((rd) => <IntemFormWorker key={rd.id} wk={rd.id} area={index_area} name_area={name_area} />)
+          data.map((rd) => <IntemFormWorker key={rd.id} wk={rd.id} area={index_area} name_area={name_area} locals={locals}/>)
         }
       </Col>
       <Button
