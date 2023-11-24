@@ -4,17 +4,20 @@ import { ContextScheduler } from './index';
 
 
 export const InsertNewArea = ({typeOfScheduler}) => {
+    const [form] = Form.useForm();
     const dataManager = useContext(ContextScheduler);
     const [schedulerLocal, setSchedulerLocal] = useState([])
+    let uniqueAreas = [...new Set(schedulerLocal.map((e)=>e.area))]
+    
     const onFinish = (value) => {
         dataManager.createNewArea(value['name_area']);
+        form.resetFields();
     };
     useEffect(() => {
         async function fetchData() {
             const response = await fetch(`http://127.0.0.1:8000/api_v1/locals?typeScheduler=${typeOfScheduler}`);
             const _schedulerLocal = await response.json();
-            setSchedulerLocal(_schedulerLocal);
-            
+            setSchedulerLocal(_schedulerLocal); 
         }
         if(typeOfScheduler != null) fetchData();
     }, [typeOfScheduler]);
@@ -23,6 +26,7 @@ export const InsertNewArea = ({typeOfScheduler}) => {
         <Form
             name='setArea'
             onFinish={onFinish}
+            form={form}
         >
             <Space align="center"
             style={{ width: '100%'}}
@@ -40,12 +44,12 @@ export const InsertNewArea = ({typeOfScheduler}) => {
                     <Select
                         style={{ width: '100%' }}
                     >
-                        {schedulerLocal.map((tp) => {
+                        {uniqueAreas.map((tp,index) => {
                             return <Select.Option
-                                key={tp.id}
-                                value={tp.id}
+                                key={index}
+                                value={tp}
                             >
-                                {tp.area}
+                                {tp}
                             </Select.Option>
                         })}
                     </Select>
