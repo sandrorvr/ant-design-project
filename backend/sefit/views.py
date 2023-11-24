@@ -64,6 +64,14 @@ class LocalsAPIView(generics.ListCreateAPIView):
     queryset = SchedulerLocal.objects.all()
     serializer_class = SchedulerLocalSerializers
 
+    def get_queryset(self):
+        queryset = SchedulerLocal.objects.order_by('area')
+        params = dict(self.request.query_params)
+        for item in params.items():
+            param = {item[0]:item[1][0]}
+            queryset = queryset.filter(**param)
+        return queryset
+
 class LocalAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = SchedulerLocal.objects.all()
     serializer_class = SchedulerLocalSerializers

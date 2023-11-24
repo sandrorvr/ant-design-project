@@ -30,7 +30,7 @@ class SchedulerLocalSerializers(serializers.ModelSerializer):
 class SchedulerTypeSerializers(serializers.ModelSerializer):
     class Meta:
         model = SchedulerType
-        fields = ['name', 'description']
+        fields = ['id','name', 'description']
 
 class SchedulerSerializers(serializers.ModelSerializer):
     typeScheduler = SchedulerTypeSerializers(read_only=True)

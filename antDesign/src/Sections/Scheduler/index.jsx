@@ -1,59 +1,83 @@
-import { useState, createContext } from 'react';
-import { Form, List, Space, Button, Row } from 'antd';
-import {green, yellow} from '@ant-design/colors';
+import { useState, createContext, useEffect } from 'react';
+import { Form, List, Space, Button, Select } from 'antd';
+import { green, yellow } from '@ant-design/colors';
 import { IntemFormArea } from './IntemFormArea';
 import { InsertNewArea } from './InsertNewArea';
 
 import { DataSchedulerMeneger } from './DataSchedulerMenger';
 import { FormatData, ValidationWorkers } from './data/FormatData';
 
+import { handleSubmit } from './functions/handleSubmit';
+import { functionTest } from './functions/functionTest';
+
 export const ContextScheduler = createContext(null);
 
 export const Scheduler = () => {
   const [dataScheduler, setDataScheduler] = useState([]);
+  const [schedulerLocal, setSchedulerLocal] = useState(null);
+  const [schedulerTypes, setSchedulerTypes] = useState([]);
   const [form] = Form.useForm();
+  const [formConfigurations] = Form.useForm();
 
-  const handleSubmit = async () => {
-    const dataFormated = new FormatData(form.getFieldsValue()).getDataListOfWorkers();
-    try {
-      const response = await fetch(
-        `http://127.0.0.1:8000/api_v1/schedulers/`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(dataFormated)
-        }
-      );
-      console.log(response);
-    } catch (error) {
-      console.log('Error during creation new worker!');
-      console.log(error);
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch('http://127.0.0.1:8000/api_v1/SchedulerTypes/');
+      const schedulerTypes = await response.json();
+      setSchedulerTypes(schedulerTypes);
     }
-  }
-
-  const FunctionTest = () => {
-    const dataFormated = new FormatData(form.getFieldsValue()).format();
-    console.log(form.getFieldsValue());
-    console.log(dataFormated);
-  }
+    fetchData()
+  }, []);
 
   return (
     <ContextScheduler.Provider value={new DataSchedulerMeneger(dataScheduler, setDataScheduler)}>
       <Space align='start' size={60}>
-      <InsertNewArea />
-      <Button
-        style={{background: yellow.primary}}
-        type="primary"
-        onClick={FunctionTest}
-      >TEST
-      </Button>
-      <Button
-        style={{background: green.primary}}
-        type="primary"
-        onClick={handleSubmit}
-      >SUBMIT
-      </Button>
+        <Form
+          style={{ width: '200px' }}
+          form={formConfigurations}
+        >
+
+          <Form.Item
+            name={'type_scheduler'}
+            rules={[
+              {
+                required: true,
+                message: 'Insira o tipo de Escala!'
+              },
+            ]}
+            style={{
+              width: '100%'
+            }}
+          >
+            <Select
+              onChange={() => setSchedulerLocal(formConfigurations.getFieldValue('type_scheduler'))}
+            >
+              {schedulerTypes.map((tp) => {
+                return <Select.Option
+
+                  key={tp.id}
+                  value={tp.id}
+                >
+                  {tp.name}
+                </Select.Option>
+              })}
+            </Select>
+          </Form.Item>
+
+        </Form>
+        <Button
+          style={{ background: yellow.primary }}
+          type="primary"
+          onClick={() => console.log('test')}
+        >TEST
+        </Button>
+        <Button
+          style={{ background: green.primary }}
+          type="primary"
+          onClick={handleSubmit}
+        >SUBMIT
+        </Button>
       </Space>
+      <InsertNewArea typeOfScheduler={schedulerLocal} />
       <Form
         form={form}
       >
