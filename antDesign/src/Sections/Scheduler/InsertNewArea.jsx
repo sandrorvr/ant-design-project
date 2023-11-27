@@ -1,27 +1,17 @@
 import { useContext, useState, useEffect } from 'react';
 import { Form, Select, Space, Button } from 'antd';
-import { ContextScheduler } from './index';
+import { ContextScheduler } from './Context/ContextScheduler';
+import { DataManager } from './Context/DataManager';
 
 
-export const InsertNewArea = ({typeOfScheduler, setSchedulerLocalByArea}) => {
+export const InsertNewArea = () => {
     const [form] = Form.useForm();
-    const dataManager = useContext(ContextScheduler);
-    const [schedulerLocal, setSchedulerLocal] = useState([])
-    let uniqueAreas = [...new Set(schedulerLocal.map((e)=>e.area))]
-    
+    const context = useContext(ContextScheduler);
+    let uniqueAreas = [...new Set(context.state.locals.map((e)=>e.area))]
     const onFinish = (value) => {
-        dataManager.createNewArea(value['name_area']);
+        context.dispatch(DataManager.createNewArea(value['name_area']));
         form.resetFields();
     };
-    useEffect(() => {
-        async function fetchData() {
-            const response = await fetch(`http://127.0.0.1:8000/api_v1/locals?typeScheduler=${typeOfScheduler}`);
-            const _schedulerLocal = await response.json();
-            setSchedulerLocal(_schedulerLocal); 
-        }
-        if(typeOfScheduler != null) fetchData();
-    }, [typeOfScheduler]);
-
     return (
         <Form
             name='setArea'
@@ -43,7 +33,7 @@ export const InsertNewArea = ({typeOfScheduler, setSchedulerLocalByArea}) => {
                 >
                     <Select
                         style={{ width: '100%' }}
-                        onChange={(value)=>{setSchedulerLocalByArea(schedulerLocal.filter((e)=>e.area == value))}}
+                        //onChange={(value)=>{setSchedulerLocalByArea(context.state.locals.filter((e)=>e.area == value))}}
                     >
                         {uniqueAreas.map((tp,index) => {
                             return <Select.Option

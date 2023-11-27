@@ -1,13 +1,15 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { Row, Button, Col, Space } from 'antd';
 import { IntemFormWorker } from './IntemFormWorker';
-import { ContextScheduler } from './index';
 import { DeleteOutlined } from '@ant-design/icons';
 
+import { ContextScheduler } from './Context/ContextScheduler';
+import { DataManager } from './Context/DataManager';
+
 export const TitleArea = ({ title, index_area }) => {
-  const dataManager = useContext(ContextScheduler);
+  const context = useContext(ContextScheduler)
   const subtractArea = () => {
-    dataManager.removeArea(index_area);
+    context.dispatch(DataManager.removeArea(index_area))
   }
   return (
     <div style={{
@@ -34,14 +36,13 @@ export const TitleArea = ({ title, index_area }) => {
   );
 };
 
-export const IntemFormArea = ({ id_area, locals}) => {
-  const dataManager = useContext(ContextScheduler);
-  const index_area = dataManager.getindexAreaByID(id_area)
-  const data = dataManager.dataScheduler[index_area]['workers'];
-  const name_area = dataManager.dataScheduler[index_area]['name_area'];
+export const IntemFormArea = ({id_area}) => {
+  const context = useContext(ContextScheduler)
+  const index_area = context.state.data.findIndex((area)=>area.id === id_area)
+  const data = context.state.data[index_area]['workers'];
+  const name_area = context.state.data[index_area]['name_area'];
   const addNewWorker = () => {
-    dataManager.createNewWorker(id_area);
-    console.log(locals)
+    context.dispatch(DataManager.createNewWorker(id_area));
   }
 
   return (
@@ -51,7 +52,14 @@ export const IntemFormArea = ({ id_area, locals}) => {
       <TitleArea title={name_area} index_area={index_area} />
       <Col span={24}>
         {
-          data.map((rd) => <IntemFormWorker key={rd.id} wk={rd.id} area={index_area} name_area={name_area} locals={locals}/>)
+          data.map((rd) => <IntemFormWorker 
+                              key={rd.id} 
+                              wk={rd.id} 
+                              area={index_area} 
+                              name_area={name_area} 
+                              locals={['l1','l2']}
+                            />
+                  )
         }
       </Col>
       <Button

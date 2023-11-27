@@ -1,4 +1,4 @@
-import { useState, createContext, useEffect } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { Form, List, Space, Button, Select } from 'antd';
 import { green, yellow } from '@ant-design/colors';
 import { IntemFormArea } from './IntemFormArea';
@@ -10,27 +10,16 @@ import { FormatData, ValidationWorkers } from './data/FormatData';
 import { handleSubmit } from './functions/handleSubmit';
 import { functionTest } from './functions/functionTest';
 
-export const ContextScheduler = createContext(null);
+import { ContextSchedulerProvider, ContextScheduler } from './Context/ContextScheduler';
+import { DataManager } from './Context/DataManager';
 
 export const Scheduler = () => {
-  const [dataScheduler, setDataScheduler] = useState([]);
-  const [schedulerTypeNumber, setSchedulerTypeNumber] = useState(null);
-  const [schedulerLocalByArea, setSchedulerLocalByArea] = useState([]);
-  const [schedulerTypes, setSchedulerTypes] = useState([]);
+  const context = useContext(ContextScheduler)
   const [form] = Form.useForm();
   const [formConfigurations] = Form.useForm();
 
-  useEffect(() => {
-    async function fetchData() {
-      const response = await fetch('http://127.0.0.1:8000/api_v1/SchedulerTypes/');
-      const schedulerTypes = await response.json();
-      setSchedulerTypes(schedulerTypes);
-    }
-    fetchData()
-  }, []);
-
   return (
-    <ContextScheduler.Provider value={new DataSchedulerMeneger(dataScheduler, setDataScheduler)}>
+    <>
       <Space align='start' size={60}>
         <Form
           style={{ width: '200px' }}
@@ -50,11 +39,10 @@ export const Scheduler = () => {
             }}
           >
             <Select
-              onChange={() => setSchedulerTypeNumber(formConfigurations.getFieldValue('type_scheduler'))}
+              onChange={() => context.dispatch(DataManager.setTypeScheduler(formConfigurations.getFieldValue('type_scheduler')))}
             >
-              {schedulerTypes.map((tp) => {
+              {context.state.listTypeScheduler.map((tp) => {
                 return <Select.Option
-
                   key={tp.id}
                   value={tp.id}
                 >
@@ -78,25 +66,24 @@ export const Scheduler = () => {
         >SUBMIT
         </Button>
       </Space>
-      <InsertNewArea typeOfScheduler={schedulerTypeNumber} setSchedulerLocalByArea={setSchedulerLocalByArea}/>
+      <InsertNewArea/>
       <Form
         form={form}
       >
         <List
           bordered
-          dataSource={dataScheduler}
+          dataSource={context.state.data}
           renderItem={(area) => (
             <List.Item>
               <IntemFormArea 
                 id_area={area.id} 
                 name_area={area.name_area} 
-                locals={schedulerLocalByArea}
               />
             </List.Item>
           )}
         />
       </Form>
-    </ContextScheduler.Provider>
+    </>
   );
 };
 

@@ -1,7 +1,9 @@
 import { useContext } from 'react'
 import { Form, Input, Select, Space, Button, TimePicker, Row } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
-import { ContextScheduler } from './index';
+import { ContextScheduler } from './Context/ContextScheduler';
+import { DataManager } from './Context/DataManager';
+
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 
@@ -15,10 +17,10 @@ for (let i = 10; i < 36; i++) {
     label: i.toString(36) + i,
   });
 }
-export const IntemFormWorker = ({ wk, area, name_area, locals }) => {
-  const dataManager = useContext(ContextScheduler);
+export const IntemFormWorker = ({ wk, area, name_area}) => {
+  const context = useContext(ContextScheduler)
   const removeItem = () => {
-    dataManager.removeWorker(area, wk);
+    context.dispatch(DataManager.removeWorker(area, wk))
   }
   return (
     <Form.Item
@@ -63,7 +65,7 @@ export const IntemFormWorker = ({ wk, area, name_area, locals }) => {
                 width: '100px',
               }}
             >
-              {locals.map((e) => {
+              {context.state.locals.map((e) => {
                 return <Select.Option
 
                   key={e.id}

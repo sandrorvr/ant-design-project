@@ -11,6 +11,8 @@ import {Scheduler} from '../Sections/Scheduler';
 import {FormDayOff} from '../Forms/DayOff';
 import {MenuSideBar} from './MenuSideBar';
 
+import {ContextSchedulerProvider} from '../Sections/Scheduler/Context/ContextScheduler';
+
 const { Content, Footer, Sider } = Layout;
 
 export const LayoutPag = () => {
@@ -47,7 +49,7 @@ export const LayoutPag = () => {
               <Route path='/user' element={<UserSections />} exact />
               <Route path='/absence' element={<FormAbsence />} exact />
 
-              <Route path='/schedule/ew' element={<Scheduler />} exact />
+              <Route path='/schedule/ew' element={<ContextSchedulerProvider><Scheduler /></ContextSchedulerProvider>} exact />
             </Routes>
           </div>
         </Content>
