@@ -20,38 +20,64 @@ export const Scheduler = () => {
 
   return (
     <>
-      <Space align='start' size={60}>
+      <Space align='start' size={60} >
         <Form
-          style={{ width: '200px' }}
+          style={{ minWidth: '200px' }}
           form={formConfigurations}
         >
-
-          <Form.Item
-            name={'type_scheduler'}
-            rules={[
-              {
-                required: true,
-                message: 'Insira o tipo de Escala!'
-              },
-            ]}
-            style={{
-              width: '100%'
-            }}
-          >
-            <Select
-              onChange={() => context.dispatch(DataManager.setTypeScheduler(formConfigurations.getFieldValue('type_scheduler')))}
+          <Space>
+            <Form.Item
+              name={'type_scheduler'}
+              rules={[
+                {
+                  required: true,
+                  message: 'Insira o tipo de Escala!'
+                },
+              ]}
+              style={{
+                minWidth: '200px',
+              }}
             >
-              {context.state.listTypeScheduler.map((tp) => {
-                return <Select.Option
-                  key={tp.id}
-                  value={tp.id}
-                >
-                  {tp.name}
-                </Select.Option>
-              })}
-            </Select>
-          </Form.Item>
+              <Select
+                onChange={() => context.dispatch(DataManager.setTypeScheduler(formConfigurations.getFieldValue('type_scheduler')))}
+              >
+                {context.state.listTypeScheduler.map((tp) => {
+                  return <Select.Option
+                    key={tp.id}
+                    value={tp.id}
+                  >
+                    {tp.name}
+                  </Select.Option>
+                })}
+              </Select>
+            </Form.Item>
 
+            {context.state.typeScheduler == 1 ?
+              <Form.Item
+                name={'group_scheduler'}
+                rules={[
+                  {
+                    required: true,
+                    message: 'Insira o tipo de Escala!'
+                  },
+                ]}
+                style={{
+                  minWidth: '50px'
+                }}
+              >
+                <Select placeholder='GP'>
+                  {[{ id: 1, gp: 'I' }, { id: 2, gp: 'II' }, { id: 3, gp: 'III' }, { id: 3, gp: 'IV' }].map((tp) => {
+                    return <Select.Option
+                      key={tp.id}
+                      value={tp.id}
+                    >
+                      {tp.gp}
+                    </Select.Option>
+                  })}
+                </Select>
+              </Form.Item> : null
+            }
+          </Space>
         </Form>
         <Button
           style={{ background: yellow.primary }}
@@ -66,7 +92,7 @@ export const Scheduler = () => {
         >SUBMIT
         </Button>
       </Space>
-      <InsertNewArea/>
+      <InsertNewArea />
       <Form
         form={form}
       >
@@ -75,9 +101,9 @@ export const Scheduler = () => {
           dataSource={context.state.data}
           renderItem={(area) => (
             <List.Item>
-              <IntemFormArea 
-                id_area={area.id} 
-                name_area={area.name_area} 
+              <IntemFormArea
+                id_area={area.id}
+                name_area={area.name_area}
               />
             </List.Item>
           )}
