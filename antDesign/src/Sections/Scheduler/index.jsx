@@ -79,7 +79,7 @@ export const Scheduler = () => {
         <Button
           style={{ background: yellow.primary }}
           type="primary"
-          onClick={() => console.log(context.state)}
+          onClick={() => functionTest(form)}
         >TEST
         </Button>
         <Button

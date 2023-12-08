@@ -1,4 +1,6 @@
+import { FormatData } from '../data/FormatData';
+
 export const functionTest = (form) => {
-    const data = form.getFieldValue('type_scheduler')
+    const data = new FormatData(form.getFieldsValue()).getDataListOfWorkers();
     console.log(data);
     }
