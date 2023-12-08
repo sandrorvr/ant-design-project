@@ -40,9 +40,9 @@ class SchedulerSerializers(serializers.ModelSerializer):
 
 
 class SchedulerWorkerSerializers(serializers.ModelSerializer):
-    local = SchedulerLocalSerializers(read_only=True)
-    scheduler = SchedulerSerializers(read_only=True)
-    servidor = ServidoresSerializers(read_only=True)
+    #local = SchedulerLocalSerializers()
+    #scheduler = SchedulerSerializers(read_only=True)
+    #servidor = ServidoresSerializers(read_only=True)
 
     class Meta:
         model = SchedulerWorker
@@ -51,5 +51,13 @@ class SchedulerWorkerSerializers(serializers.ModelSerializer):
             "local", "eqp", 
             "func", "servidor", "timeFinish", "timeStart"
             ]
+    
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+        response['local'] = SchedulerLocalSerializers(instance.local).data
+        response['scheduler'] = SchedulerSerializers(instance.scheduler).data
+        response['servidor'] = ServidoresSerializers(instance.servidor).data
+        return response
+
     
     
