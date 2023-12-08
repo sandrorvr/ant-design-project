@@ -12,10 +12,10 @@ export const reducer = (state, action)=>{
             newState.data = createNewWorker(state.data, action.params);
             return {...newState};
         case ACTION.REMOVE_AREA:
-            newState.date = state.data.splice(action.params, 1);
+            newState.data = state.data.splice(action.params, 1);
             return {...newState};
         case ACTION.REMOVE_WORKER:
-            newState.date = removeWorker(state.data, action.params)
+            newState.data = removeWorker(state.data, action.params)
             return {...newState};
         case ACTION.SET_TYPES_SCHEDULERS:
             newState.listTypeScheduler = action.params
@@ -43,16 +43,21 @@ function createNewArea(name_area){
     return new_area
 }
 
-function createNewWorker(state, id_area){
+function createNewWorker(data, id_area){
+    const state = [...data]
     const index_area = state.findIndex((area)=>area.id === id_area);
     const new_worker = {
         id:uuidv4()
     }
-    return state[index_area]['workers'].push(new_worker);
+    state[index_area]['workers'].push(new_worker)
+    return state;
 }
 
-function removeWorker(state, arrayID){
-    id_area ,id_worker = arrayID
-    const index_removed = state[id_area]['workers'].findIndex((wk)=>wk.id === id_worker);
-    return state[id_area]['workers'].splice(index_removed, 1);
+function removeWorker(data, arrayID){
+    const state = [...data];
+    const index_removed = state[arrayID.id_area]['workers'].findIndex((wk)=>wk.id === arrayID.id_worker);
+    const new_array_workers = [...state[arrayID.id_area]['workers']]
+    new_array_workers.splice(index_removed, 1)
+    state[arrayID.id_area]['workers'] = new_array_workers
+    return state;
 }

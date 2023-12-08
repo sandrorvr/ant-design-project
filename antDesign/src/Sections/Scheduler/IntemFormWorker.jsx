@@ -10,13 +10,6 @@ import customParseFormat from 'dayjs/plugin/customParseFormat';
 dayjs.extend(customParseFormat);
 const { Option } = Select;
 
-const options = [];
-for (let i = 10; i < 36; i++) {
-  options.push({
-    value: i.toString(36) + i,
-    label: i.toString(36) + i,
-  });
-}
 export const IntemFormWorker = ({ wk, area, name_area}) => {
   const context = useContext(ContextScheduler)
   const removeItem = () => {

@@ -57,7 +57,6 @@ export const IntemFormArea = ({id_area}) => {
                               wk={rd.id} 
                               area={index_area} 
                               name_area={name_area} 
-                              locals={['l1','l2']}
                             />
                   )
         }

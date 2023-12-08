@@ -1,11 +1,8 @@
-import { useState, useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { Form, List, Space, Button, Select } from 'antd';
 import { green, yellow } from '@ant-design/colors';
 import { IntemFormArea } from './IntemFormArea';
 import { InsertNewArea } from './InsertNewArea';
-
-import { DataSchedulerMeneger } from './DataSchedulerMenger';
-import { FormatData, ValidationWorkers } from './data/FormatData';
 
 import { handleSubmit } from './functions/handleSubmit';
 import { functionTest } from './functions/functionTest';
@@ -66,7 +63,7 @@ export const Scheduler = () => {
                 }}
               >
                 <Select placeholder='GP'>
-                  {[{ id: 1, gp: 'I' }, { id: 2, gp: 'II' }, { id: 3, gp: 'III' }, { id: 3, gp: 'IV' }].map((tp) => {
+                  {[{ id: 1, gp: 'I' }, { id: 2, gp: 'II' }, { id: 3, gp: 'III' }, { id: 4, gp: 'IV' }].map((tp) => {
                     return <Select.Option
                       key={tp.id}
                       value={tp.id}
@@ -82,7 +79,7 @@ export const Scheduler = () => {
         <Button
           style={{ background: yellow.primary }}
           type="primary"
-          onClick={() => console.log('test')}
+          onClick={() => console.log(context.state)}
         >TEST
         </Button>
         <Button
