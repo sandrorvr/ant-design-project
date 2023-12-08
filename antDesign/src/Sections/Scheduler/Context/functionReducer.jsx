@@ -12,7 +12,7 @@ export const reducer = (state, action)=>{
             newState.data = createNewWorker(state.data, action.params);
             return {...newState};
         case ACTION.REMOVE_AREA:
-            newState.data = state.data.splice(action.params, 1);
+            newState.data = removeArea(state.data, action.params);
             return {...newState};
         case ACTION.REMOVE_WORKER:
             newState.data = removeWorker(state.data, action.params)
@@ -61,3 +61,10 @@ function removeWorker(data, arrayID){
     state[arrayID.id_area]['workers'] = new_array_workers
     return state;
 }
+
+function removeArea(data, id){
+    const state = [...data];
+    state.splice(id, 1);
+    return state;
+}
+
