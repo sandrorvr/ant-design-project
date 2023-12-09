@@ -22,11 +22,12 @@ urlpatterns = [
 
     path('SchedulerWorkers/', SchedulerWorkersAPIView.as_view()),
     path('SchedulerWorkers/<int:pk>', SchedulerWorkersAPIView.as_view()),
+    path('SchedulerWorker/<int:pk>', SchedulerWorkerAPIView.as_view()),
 
     path('SchedulerTypes/', SchedulerTypesAPIView.as_view()),
     path('SchedulerTypes/<int:pk>', SchedulerTypesAPIView.as_view()),
 
     path('locals/', LocalsAPIView.as_view()),
-    path('locals/<str:roteiro_id>', LocalsAPIView.as_view()),
-    path('local/<str:roteiro_id>', LocalAPIView.as_view())
+    path('locals/<int:pk>', LocalsAPIView.as_view()),
+    path('local/<int:pk>', LocalAPIView.as_view())
 ]

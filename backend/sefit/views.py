@@ -49,10 +49,21 @@ class DayOffAPIView(generics.RetrieveUpdateDestroyAPIView):
 
 #-----------------------------------------------------
 
-class SchedulerWorkersAPIView(generics.ListCreateAPIView):
-    queryset = SchedulerWorker.objects.all()
-    serializer_class = SchedulerWorkerSerializers
+#class SchedulerWorkersAPIView(generics.ListCreateAPIView):
+#    queryset = SchedulerWorker.objects.all()
+#    serializer_class = SchedulerWorkerSerializers
+class SchedulerWorkersAPIView(APIView):
+    def get(self, request):
+        queryset = SchedulerWorker.objects.all()
+        serializer = SchedulerWorkerSerializers(queryset, many=True)
+        return Response(serializer.data)
     
+    def post(self, request):
+        serializer = SchedulerWorkerSerializers(data=request.data, many=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response('ok')
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 class SchedulerWorkerAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = SchedulerWorker.objects.all()

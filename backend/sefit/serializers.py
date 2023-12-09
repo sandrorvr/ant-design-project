@@ -33,16 +33,17 @@ class SchedulerTypeSerializers(serializers.ModelSerializer):
         fields = ['id','name', 'description']
 
 class SchedulerSerializers(serializers.ModelSerializer):
-    typeScheduler = SchedulerTypeSerializers(read_only=True)
+    
     class Meta:
         model = Scheduler
-        fields = ['typeScheduler','date','obs', 'timeFinish','timeStart']
+        fields = ['id','typeScheduler','date','obs', 'timeFinish','timeStart']
 
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+        response['typeScheduler'] = SchedulerTypeSerializers(instance.typeScheduler).data
+        return response
 
 class SchedulerWorkerSerializers(serializers.ModelSerializer):
-    #local = SchedulerLocalSerializers()
-    #scheduler = SchedulerSerializers(read_only=True)
-    #servidor = ServidoresSerializers(read_only=True)
 
     class Meta:
         model = SchedulerWorker
@@ -59,5 +60,4 @@ class SchedulerWorkerSerializers(serializers.ModelSerializer):
         response['servidor'] = ServidoresSerializers(instance.servidor).data
         return response
 
-    
     

@@ -70,6 +70,7 @@ class Scheduler(models.Model):
         return f'{self.typeScheduler.name} - {self.date.year}'
 
 class SchedulerWorker(models.Model):
+    id = models.IntegerField(primary_key=True)
     eqp = models.CharField(max_length=4, choices=TYPE_EQP)
     func = models.CharField(max_length=3, choices=TYPE_FUNCTIONS)
     local = models.ForeignKey(SchedulerLocal, on_delete=models.CASCADE)
