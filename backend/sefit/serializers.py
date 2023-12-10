@@ -25,7 +25,7 @@ class DayOffSerializers(serializers.ModelSerializer):
 class SchedulerLocalSerializers(serializers.ModelSerializer):
     class Meta:
         model = SchedulerLocal
-        fields = ['area','local','typeScheduler']
+        fields = ['id','area','local','typeScheduler']
     
     def to_representation(self, instance):
         response = super().to_representation(instance)
