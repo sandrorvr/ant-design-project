@@ -14,6 +14,14 @@ from .models import Servidores, DayOff, SchedulerWorker, SchedulerLocal, Schedul
 class ServidoresAPIView(generics.ListCreateAPIView):
     queryset = Servidores.objects.all()
     serializer_class = ServidoresSerializers
+
+    def get_queryset(self):
+        queryset = Servidores.objects.all()
+        params = dict(self.request.query_params)
+        for item in params.items():
+            param = {item[0]:item[1][0]}
+            queryset = queryset.filter(**param)
+        return queryset
     
 class ServidorAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Servidores.objects.all()

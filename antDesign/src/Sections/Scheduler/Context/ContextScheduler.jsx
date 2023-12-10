@@ -5,6 +5,10 @@ import {DataManager} from './DataManager';
 
 const initStateScheduler = {
     data: [],
+    infoScheduler:{
+      date:'',
+      type:'',
+    },
     listTypeScheduler: [],
     typeScheduler: null,
     locals: []
