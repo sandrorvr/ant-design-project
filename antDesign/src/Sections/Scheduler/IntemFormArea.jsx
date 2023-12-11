@@ -36,7 +36,7 @@ export const TitleArea = ({ title, index_area }) => {
   );
 };
 
-export const IntemFormArea = ({id_area}) => {
+export const IntemFormArea = ({id_area }) => {
   const context = useContext(ContextScheduler)
   const index_area = context.state.data.findIndex((area)=>area.id === id_area)
   const data = context.state.data[index_area]['workers'];

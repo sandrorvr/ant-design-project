@@ -44,7 +44,7 @@ export class Worker{
         this._data = {
             id_WK,
             area:null,
-            name:null,
+            servidor:null,
             local:null, 
             timeStart:null,
             timeFinish:null,

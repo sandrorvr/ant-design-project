@@ -19,6 +19,9 @@ export class DataManager{
     static setTypeScheduler = (number_type)=>{
         return {type: ACTION.SET_TYPE_SCHEDULER, params: number_type}
     }
+    static setGroupScheduler = (string_group)=>{
+        return {type: ACTION.SET_GROUP_SCHEDULER, params: string_group}
+    }
     static setAllLocals = (locals)=>{
         return {type: ACTION.SET_LOCALS, params: locals}
     }

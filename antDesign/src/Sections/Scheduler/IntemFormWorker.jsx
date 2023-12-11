@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Form, Input, Select, Space, Button, TimePicker, Row } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 import { ContextScheduler } from './Context/ContextScheduler';
@@ -12,9 +12,22 @@ const { Option } = Select;
 
 export const IntemFormWorker = ({ wk, area, name_area}) => {
   const context = useContext(ContextScheduler)
+  const [servidores, setServidores] = useState([]);
+
   const removeItem = () => {
     context.dispatch(DataManager.removeWorker(area, wk))
   }
+
+  useEffect(()=>{
+    const getServidores = async () =>{
+      const gp = context.state.infoScheduler.group;
+      const response = await fetch(`http://127.0.0.1:8000/api_v1/servidores?gp=${gp}`);
+      const listServidores = await response.json();
+      setServidores(listServidores);
+    }
+    getServidores();
+  },[context.state.infoScheduler.group])
+
   return (
     <Form.Item
       style={{
@@ -40,9 +53,24 @@ export const IntemFormWorker = ({ wk, area, name_area}) => {
                 required: false,
               },
             ]}
-
           >
-            <Input placeholder="Input birth year" />
+            <Select
+              placeholder="Select Name"
+              style={{
+                width: '170px',
+              }}
+            >
+              {servidores.map((e) => {
+                return <Select.Option
+
+                  key={e.mat}
+                  value={e.mat}
+                >
+                  {e.name}
+                </Select.Option>
+              })}
+            </Select>
+            
           </Form.Item>
           <Form.Item
             name={`local_${wk}`}

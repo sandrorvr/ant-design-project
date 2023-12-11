@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { Form, List, Space, Button, Select } from 'antd';
 import { green, yellow } from '@ant-design/colors';
 import { IntemFormArea } from './IntemFormArea';
@@ -7,7 +7,7 @@ import { InsertNewArea } from './InsertNewArea';
 import { handleSubmit } from './functions/handleSubmit';
 import { functionTest } from './functions/functionTest';
 
-import { ContextSchedulerProvider, ContextScheduler } from './Context/ContextScheduler';
+import { ContextScheduler } from './Context/ContextScheduler';
 import { DataManager } from './Context/DataManager';
 
 export const Scheduler = () => {
@@ -62,8 +62,11 @@ export const Scheduler = () => {
                   minWidth: '50px'
                 }}
               >
-                <Select placeholder='GP'>
-                  {[{ id: 1, gp: 'I' }, { id: 2, gp: 'II' }, { id: 3, gp: 'III' }, { id: 4, gp: 'IV' }].map((tp) => {
+                <Select 
+                  placeholder='GP'
+                  onChange={(value) => context.dispatch(DataManager.setGroupScheduler(value))}
+                >
+                  {[{ id: 'i', gp: 'I' }, { id: 'ii', gp: 'II' }, { id: 'iii', gp: 'III' }, { id: 'iv', gp: 'IV' }].map((tp) => {
                     return <Select.Option
                       key={tp.id}
                       value={tp.id}
@@ -85,7 +88,7 @@ export const Scheduler = () => {
         <Button
           style={{ background: green.primary }}
           type="primary"
-          onClick={handleSubmit}
+          onClick={()=>console.log(context.state)}//handleSubmit
         >SUBMIT
         </Button>
       </Space>
