@@ -26,6 +26,9 @@ export const reducer = (state, action)=>{
         case ACTION.SET_GROUP_SCHEDULER:
             newState.infoScheduler.group = action.params
             return {...newState};
+        case ACTION.SET_DATE_SCHEDULER:
+            newState.infoScheduler.date = action.params
+            return {...newState};
         case ACTION.SET_LOCALS:
             newState.locals = action.params
             return {...newState};

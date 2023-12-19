@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { Form, List, Space, Button, Select } from 'antd';
+import { Form, List, Space, Button, Select, DatePicker, Input } from 'antd';
 import { green, yellow } from '@ant-design/colors';
 import { IntemFormArea } from './IntemFormArea';
 import { InsertNewArea } from './InsertNewArea';
@@ -9,6 +9,7 @@ import { functionTest } from './functions/functionTest';
 
 import { ContextScheduler } from './Context/ContextScheduler';
 import { DataManager } from './Context/DataManager';
+
 
 export const Scheduler = () => {
   const context = useContext(ContextScheduler)
@@ -62,7 +63,7 @@ export const Scheduler = () => {
                   minWidth: '50px'
                 }}
               >
-                <Select 
+                <Select
                   placeholder='GP'
                   onChange={(value) => context.dispatch(DataManager.setGroupScheduler(value))}
                 >
@@ -77,18 +78,41 @@ export const Scheduler = () => {
                 </Select>
               </Form.Item> : null
             }
+            <Form.Item
+              name={`date_scheduler`}
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
+            >
+              <DatePicker 
+                onChange={(value) => context.dispatch(DataManager.setDateScheduler(value.toJSON().slice(0,10)))}
+                picker="day" 
+              />
+            </Form.Item>
+            <Form.Item
+              name={`description_scheduler`}
+              rules={[
+                {
+                  required: false,
+                },
+              ]}
+            >
+              <Input placeholder='Description'/>
+            </Form.Item>
           </Space>
         </Form>
         <Button
           style={{ background: yellow.primary }}
           type="primary"
-          onClick={() => functionTest(form)}
+          onClick={() => console.log(context)}//functionTest(form)
         >TEST
         </Button>
         <Button
           style={{ background: green.primary }}
           type="primary"
-          onClick={()=>console.log(context.state)}//handleSubmit
+          onClick={() => console.log(context.state)}//handleSubmit
         >SUBMIT
         </Button>
       </Space>

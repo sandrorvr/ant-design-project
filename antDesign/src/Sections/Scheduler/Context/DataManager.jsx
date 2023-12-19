@@ -22,6 +22,9 @@ export class DataManager{
     static setGroupScheduler = (string_group)=>{
         return {type: ACTION.SET_GROUP_SCHEDULER, params: string_group}
     }
+    static setDateScheduler = (string_date)=>{
+        return {type: ACTION.SET_DATE_SCHEDULER, params: string_date}
+    }
     static setAllLocals = (locals)=>{
         return {type: ACTION.SET_LOCALS, params: locals}
     }
