@@ -8,10 +8,10 @@ const initStateScheduler = {
     infoScheduler:{
       group:'',
       date:'',
-      type:'',
+      type:null,
     },
     listTypeScheduler: [],
-    typeScheduler: null,
+    //typeScheduler: null,
     locals: []
 }
 
@@ -32,12 +32,12 @@ export const ContextSchedulerProvider = ({ children }) => {
 
     useEffect(() => {
       async function fetchData() {
-        const response = await fetch(`http://127.0.0.1:8000/api_v1/locals?typeScheduler=${state.typeScheduler}`);
+        const response = await fetch(`http://127.0.0.1:8000/api_v1/locals?typeScheduler=${state.infoScheduler.type}`);
         const locals = await response.json();
         dispatch(DataManager.setAllLocals(locals));
       }
-      if(state.typeScheduler != null) fetchData();
-    }, [state.typeScheduler]);
+      if(state.infoScheduler.type != null) fetchData();
+    }, [state.infoScheduler.type]);
 
     return (
         <ContextScheduler.Provider value={value}>{children}</ContextScheduler.Provider>

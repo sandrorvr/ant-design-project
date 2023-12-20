@@ -21,7 +21,8 @@ export const reducer = (state, action)=>{
             newState.listTypeScheduler = action.params
             return {...newState};
         case ACTION.SET_TYPE_SCHEDULER:
-            newState.typeScheduler = action.params
+            //newState.typeScheduler = action.params
+            newState.infoScheduler.type = action.params
             return {...newState};
         case ACTION.SET_GROUP_SCHEDULER:
             newState.infoScheduler.group = action.params

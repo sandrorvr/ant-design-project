@@ -37,7 +37,7 @@ export const Scheduler = () => {
               }}
             >
               <Select
-                onChange={() => context.dispatch(DataManager.setTypeScheduler(formConfigurations.getFieldValue('type_scheduler')))}
+                onChange={(value) => context.dispatch(DataManager.setTypeScheduler(value))}
               >
                 {context.state.listTypeScheduler.map((tp) => {
                   return <Select.Option
@@ -50,7 +50,7 @@ export const Scheduler = () => {
               </Select>
             </Form.Item>
 
-            {context.state.typeScheduler == 1 ?
+            {context.state.infoScheduler.type == 1 ?
               <Form.Item
                 name={'group_scheduler'}
                 rules={[
