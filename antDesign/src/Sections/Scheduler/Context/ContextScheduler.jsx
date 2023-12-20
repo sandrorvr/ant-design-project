@@ -11,7 +11,6 @@ const initStateScheduler = {
       type:null,
     },
     listTypeScheduler: [],
-    //typeScheduler: null,
     locals: []
 }
 
