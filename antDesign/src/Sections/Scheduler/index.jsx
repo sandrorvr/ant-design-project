@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { Form, List, Space, Button, Select, DatePicker, Input } from 'antd';
+import { Form, List, Space, Button, Select, DatePicker,TimePicker, Input } from 'antd';
 import { green, yellow } from '@ant-design/colors';
 import { IntemFormArea } from './IntemFormArea';
 import { InsertNewArea } from './InsertNewArea';
@@ -9,6 +9,11 @@ import { functionTest } from './functions/functionTest';
 
 import { ContextScheduler } from './Context/ContextScheduler';
 import { DataManager } from './Context/DataManager';
+
+import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+
+dayjs.extend(customParseFormat);
 
 
 export const Scheduler = () => {
@@ -101,12 +106,23 @@ export const Scheduler = () => {
             >
               <Input placeholder='Description'/>
             </Form.Item>
+            <Form.Item
+            name={`timeStart`}
+            initialValue={dayjs('00:00:00', 'HH:mm:ss')}
+            rules={[
+              {
+                required: false,
+              },
+            ]}
+          >
+            <TimePicker.RangePicker initialValues={dayjs('00:00:00', 'HH:mm:ss')} />
+          </Form.Item>
           </Space>
         </Form>
         <Button
           style={{ background: yellow.primary }}
           type="primary"
-          onClick={() => console.log(context)}//functionTest(form)
+          onClick={() => functionTest(form, context)}//console.log(context)
         >TEST
         </Button>
         <Button

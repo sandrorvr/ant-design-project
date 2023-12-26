@@ -47,7 +47,7 @@ export const IntemFormWorker = ({ wk, area, name_area}) => {
             <Input style={{ display: 'none' }} />
           </Form.Item>
           <Form.Item
-            name={`name_${wk}`}
+            name={`servidor_${wk}`}
             rules={[
               {
                 required: false,
@@ -139,7 +139,7 @@ export const IntemFormWorker = ({ wk, area, name_area}) => {
               }}
             >
               <Option value="vtr">Viatura</Option>
-              <Option value="moto">Motocicleta</Option>
+              <Option value="mt">Motocicleta</Option>
               <Option value="other">Other</Option>
             </Select>
           </Form.Item>

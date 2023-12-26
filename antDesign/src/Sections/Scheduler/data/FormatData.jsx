@@ -105,7 +105,7 @@ export class ValidationWorkers{
         for(let work of this.listWorkers){
             const {status} = this.checkFieldNulls(work);
             let color = status ? 'red':'#d9d9d9';
-            this.paintFieldProblem(`name_${work.id}`, color);
+            this.paintFieldProblem(`servidor_${work.id}`, color);
         }
     }
 }

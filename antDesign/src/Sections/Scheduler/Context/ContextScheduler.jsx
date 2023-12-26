@@ -9,6 +9,9 @@ const initStateScheduler = {
       group:'',
       date:'',
       type:null,
+      obs:'',
+      timeFinish:'00:00:00',
+	    timeStart: '00:00:00'
     },
     listTypeScheduler: [],
     locals: []
