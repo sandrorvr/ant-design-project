@@ -2,14 +2,16 @@ from django.db import models
 
 TYPE_FUNCTIONS = [
     ('agt', 'AGENTE'),
-    ('coo', 'COORDENADOR'),
     ('sup', 'SUPERVISOR'),
+    ('coo', 'COORDENADOR'),
+    ('ger', 'Gerente')
 ]
 
 TYPE_EQP = [
     ('vtr', 'VIATURA'),
     ('mt', 'MOTO'),
-    ('po', 'A Pé')
+    ('po', 'A Pé'),
+    ('oth', 'Other')
 ]
 
 class Servidores(models.Model):
@@ -60,6 +62,9 @@ class SchedulerLocal(models.Model):
 
     
 class Scheduler(models.Model):
+    class Meta:
+        unique_together = (('date', 'typeScheduler', 'obs'),)
+
     typeScheduler = models.ForeignKey(SchedulerType, on_delete=models.CASCADE)
     date = models.DateField()
     obs = models.TextField(max_length=500, null=True, blank=True)

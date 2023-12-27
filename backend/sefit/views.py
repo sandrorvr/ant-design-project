@@ -106,8 +106,7 @@ class SchedulersAPIView(generics.ListCreateAPIView):
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
-        print(dir(serializer.id))
-        return Response('ok')
+        return Response(serializer.data['id'])
     
     
 class SchedulerAPIView(generics.RetrieveUpdateDestroyAPIView):

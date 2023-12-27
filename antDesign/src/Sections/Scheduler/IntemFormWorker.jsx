@@ -140,7 +140,8 @@ export const IntemFormWorker = ({ wk, area, name_area}) => {
             >
               <Option value="vtr">Viatura</Option>
               <Option value="mt">Motocicleta</Option>
-              <Option value="other">Other</Option>
+              <Option value="po">A Pé</Option>
+              <Option value="oth">Other</Option>
             </Select>
           </Form.Item>
           <Form.Item

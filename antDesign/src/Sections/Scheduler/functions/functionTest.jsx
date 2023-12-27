@@ -1,6 +1,4 @@
-import { useContext } from 'react';
 import { FormatData } from '../data/FormatData';
-import { ContextScheduler } from '../Context/ContextScheduler';
 
 const createSecheduler = async (infoScheduler)=>{
     const scheduler = {
@@ -10,6 +8,7 @@ const createSecheduler = async (infoScheduler)=>{
         timeFinish: infoScheduler.timeFinish,
         timeStart: infoScheduler.timeStart
     };
+
     try {
         const response = await fetch(
           `http://127.0.0.1:8000/api_v1/schedulers/`,
@@ -19,8 +18,9 @@ const createSecheduler = async (infoScheduler)=>{
             body: JSON.stringify(scheduler)
           }
         );
-        console.log(scheduler)
-        return response;
+        const responseJson = await response.json();
+        console.log("Scheduler was created!")
+        return responseJson;
       } catch (error) {
         console.log('Error during creation new scheduler!');
         console.log(error);
@@ -30,10 +30,9 @@ const createSecheduler = async (infoScheduler)=>{
 
 const createFormToSend = async (infoScheduler, data)=>{
     const idScheduler = await createSecheduler(infoScheduler);
-    console.log(idScheduler.JSON);
     const newdata = data.map((wk)=>{
         return {
-            scheduler:6,
+            scheduler:idScheduler,
             eqp:wk.eqp,
             func:wk.func,
             local:wk.local,
@@ -43,9 +42,9 @@ const createFormToSend = async (infoScheduler, data)=>{
             }
     })
     
-    console.log(JSON.stringify(newdata))
+
     try {
-        const response = await fetch(
+        await fetch(
           `http://127.0.0.1:8000/api_v1/SchedulerWorkers/`,
           {
             method: 'POST',
@@ -53,7 +52,7 @@ const createFormToSend = async (infoScheduler, data)=>{
             body: JSON.stringify(newdata)
           }
         );
-        console.log(response);
+        console.log("Worker was created!")
       } catch (error) {
         console.log('Error during creation new worker!');
         console.log(error);
@@ -62,6 +61,16 @@ const createFormToSend = async (infoScheduler, data)=>{
 export const functionTest = async (form, ctx) => {
     const context = ctx
     const data = new FormatData(form.getFieldsValue()).getDataListOfWorkers();
-    await createFormToSend(context.state.infoScheduler, data);
-    console.log(data);
+    try {
+      const response = await createFormToSend(context.state.infoScheduler, data);
+      if(response.status === 200){
+        console.log('Scheduler registered!');
+        window.alert('Scheduler registered!');
+      }else{
+        return new Error('FUDEUUUUUU')
+      }
+    } catch (error) {
+      console.log(error);
+      window.alert('FUDEUUUUUU')
+    }
     }
