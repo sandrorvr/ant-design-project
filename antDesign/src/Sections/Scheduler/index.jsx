@@ -104,7 +104,9 @@ export const Scheduler = () => {
                 },
               ]}
             >
-              <Input placeholder='Description'/>
+              <Input 
+                placeholder='Description'
+              />
             </Form.Item>
             <Form.Item
             name={`timeStart`}
@@ -115,7 +117,11 @@ export const Scheduler = () => {
               },
             ]}
           >
-            <TimePicker.RangePicker initialValues={dayjs('00:00:00', 'HH:mm:ss')} />
+            <TimePicker.RangePicker 
+              //onChange={(value)=>console.log(value.map((time)=>time.format("HH:mm:ss")))}
+              onChange={(value)=>context.dispatch(DataManager.setTimes(value.map((time)=>time.format("HH:mm:ss"))))}
+              initialValues={dayjs('00:00:00', 'HH:mm:ss')} 
+            />
           </Form.Item>
           </Space>
         </Form>

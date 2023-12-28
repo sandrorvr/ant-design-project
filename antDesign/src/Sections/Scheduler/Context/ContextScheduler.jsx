@@ -6,7 +6,7 @@ import {DataManager} from './DataManager';
 const initStateScheduler = {
     data: [],
     infoScheduler:{
-      group:'',
+      group:null,
       date:'',
       type:null,
       obs:'',

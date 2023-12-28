@@ -28,4 +28,10 @@ export class DataManager{
     static setAllLocals = (locals)=>{
         return {type: ACTION.SET_LOCALS, params: locals}
     }
+    static setObs = (obs)=>{
+        return {type: ACTION.SET_OBS_SCHEDULER, params: obs}
+    }
+    static setTimes = (timesArray)=>{
+        return {type: ACTION.SET_TIMES_SCHEDULER, params: timesArray}
+    }
 }

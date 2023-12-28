@@ -15,19 +15,26 @@ export const reducer = (state, action)=>{
             newState.data = removeArea(state.data, action.params);
             return {...newState};
         case ACTION.REMOVE_WORKER:
-            newState.data = removeWorker(state.data, action.params)
+            newState.data = removeWorker(state.data, action.params);
             return {...newState};
         case ACTION.SET_TYPES_SCHEDULERS:
-            newState.listTypeScheduler = action.params
+            newState.listTypeScheduler = action.params;
             return {...newState};
         case ACTION.SET_TYPE_SCHEDULER:
-            newState.infoScheduler.type = action.params
+            newState.infoScheduler.type = action.params;
             return {...newState};
         case ACTION.SET_GROUP_SCHEDULER:
-            newState.infoScheduler.group = action.params
+            newState.infoScheduler.group = action.params;
             return {...newState};
         case ACTION.SET_DATE_SCHEDULER:
-            newState.infoScheduler.date = action.params
+            newState.infoScheduler.date = action.params;
+            return {...newState};
+        case ACTION.SET_OBS_SCHEDULER:
+            newState.infoScheduler.obs = action.params;
+            return {...newState};
+        case ACTION.SET_TIMES_SCHEDULER:
+            newState.infoScheduler.timeStart = action.params[0];
+            newState.infoScheduler.timeFinish = action.params[1];
             return {...newState};
         case ACTION.SET_LOCALS:
             newState.locals = action.params

@@ -20,8 +20,12 @@ export const IntemFormWorker = ({ wk, area, name_area}) => {
 
   useEffect(()=>{
     const getServidores = async () =>{
+      let url_base = 'http://127.0.0.1:8000/api_v1/servidores'
       const gp = context.state.infoScheduler.group;
-      const response = await fetch(`http://127.0.0.1:8000/api_v1/servidores?gp=${gp}`);
+      if(gp != null){
+        url_base = url_base+`?gp=${gp}`;
+      }
+      const response = await fetch(`${url_base}`);
       const listServidores = await response.json();
       setServidores(listServidores);
     }
@@ -55,6 +59,9 @@ export const IntemFormWorker = ({ wk, area, name_area}) => {
             ]}
           >
             <Select
+              showSearch
+              optionFilterProp="children"
+              filterOption={(input, option) => (option?.children ?? '').toLowerCase().includes(input)}
               placeholder="Select Name"
               style={{
                 width: '170px',

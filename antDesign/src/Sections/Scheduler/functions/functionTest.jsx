@@ -1,4 +1,5 @@
 import { FormatData } from '../data/FormatData';
+import { DataManager } from '../Context/DataManager';
 
 const createSecheduler = async (infoScheduler)=>{
     const scheduler = {
@@ -8,7 +9,7 @@ const createSecheduler = async (infoScheduler)=>{
         timeFinish: infoScheduler.timeFinish,
         timeStart: infoScheduler.timeStart
     };
-
+    console.log(scheduler)
     try {
         const response = await fetch(
           `http://127.0.0.1:8000/api_v1/schedulers/`,
@@ -18,9 +19,8 @@ const createSecheduler = async (infoScheduler)=>{
             body: JSON.stringify(scheduler)
           }
         );
-        const responseJson = await response.json();
         console.log("Scheduler was created!")
-        return responseJson;
+        return await response.json();
       } catch (error) {
         console.log('Error during creation new scheduler!');
         console.log(error);
@@ -44,7 +44,7 @@ const createFormToSend = async (infoScheduler, data)=>{
     
 
     try {
-        await fetch(
+        const reponse = await fetch(
           `http://127.0.0.1:8000/api_v1/SchedulerWorkers/`,
           {
             method: 'POST',
@@ -52,22 +52,28 @@ const createFormToSend = async (infoScheduler, data)=>{
             body: JSON.stringify(newdata)
           }
         );
-        console.log("Worker was created!")
+        if(reponse.status == 200){
+          console.log("Worker was created!");
+          return 'status_ok';
+        }else{
+          throw new Error('Fail created worker');
+        }
       } catch (error) {
-        console.log('Error during creation new worker!');
         console.log(error);
+        return 'status_not_ok';
       }
 }
 export const functionTest = async (form, ctx) => {
     const context = ctx
+    context.dispatch(DataManager.setObs(form.getFieldValue('description_scheduler')))
     const data = new FormatData(form.getFieldsValue()).getDataListOfWorkers();
     try {
       const response = await createFormToSend(context.state.infoScheduler, data);
-      if(response.status === 200){
+      if(response === 'status_ok'){
         console.log('Scheduler registered!');
         window.alert('Scheduler registered!');
       }else{
-        return new Error('FUDEUUUUUU')
+        throw new Error('FUDEUUUUUU');
       }
     } catch (error) {
       console.log(error);
