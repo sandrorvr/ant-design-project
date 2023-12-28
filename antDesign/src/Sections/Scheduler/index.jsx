@@ -97,7 +97,7 @@ export const Scheduler = () => {
               />
             </Form.Item>
             <Form.Item
-              name={`description_scheduler`}
+              name={'description_scheduler'}
               rules={[
                 {
                   required: false,
@@ -128,7 +128,7 @@ export const Scheduler = () => {
         <Button
           style={{ background: yellow.primary }}
           type="primary"
-          onClick={() => functionTest(form, context)}//console.log(context)
+          onClick={() => functionTest(form, formConfigurations, context)}//console.log(context)
         >TEST
         </Button>
         <Button

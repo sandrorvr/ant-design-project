@@ -19,6 +19,7 @@ const createSecheduler = async (infoScheduler)=>{
             body: JSON.stringify(scheduler)
           }
         );
+        console.log(response);
         console.log("Scheduler was created!")
         return await response.json();
       } catch (error) {
@@ -63,9 +64,9 @@ const createFormToSend = async (infoScheduler, data)=>{
         return 'status_not_ok';
       }
 }
-export const functionTest = async (form, ctx) => {
+export const functionTest = async (form, formConfigurations, ctx) => {
     const context = ctx
-    context.dispatch(DataManager.setObs(form.getFieldValue('description_scheduler')))
+    context.dispatch(DataManager.setObs(formConfigurations.getFieldValue('description_scheduler')))
     const data = new FormatData(form.getFieldsValue()).getDataListOfWorkers();
     try {
       const response = await createFormToSend(context.state.infoScheduler, data);
