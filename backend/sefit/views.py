@@ -102,12 +102,15 @@ class SchedulersAPIView(generics.ListCreateAPIView):
     serializer_class = SchedulerSerializers
 
     def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data['id'])
-    
+        existScheduler = Scheduler.objects.filter(date=request.data['date'],typeScheduler=request.data['typeScheduler'],obs=request.data['obs']).exists()
+        if existScheduler:
+            return Response({'error':100,'msg':'duplicate scheduler'}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            serializer = self.get_serializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            self.perform_create(serializer)
+            headers = self.get_success_headers(serializer.data)
+            return Response(serializer.data['id'])
     
 class SchedulerAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Scheduler.objects.all()
