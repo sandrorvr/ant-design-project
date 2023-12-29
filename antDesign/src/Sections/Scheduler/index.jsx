@@ -7,6 +7,7 @@ import { InsertNewArea } from './InsertNewArea';
 import { handleSubmit } from './functions/handleSubmit';
 import { functionTest } from './functions/functionTest';
 
+
 import { ContextScheduler } from './Context/ContextScheduler';
 import { DataManager } from './Context/DataManager';
 
@@ -128,13 +129,13 @@ export const Scheduler = () => {
         <Button
           style={{ background: yellow.primary }}
           type="primary"
-          onClick={() => functionTest(form, formConfigurations, context)}//console.log(context)
+          onClick={() => functionTest(form)}//console.log(context)
         >TEST
         </Button>
         <Button
           style={{ background: green.primary }}
           type="primary"
-          onClick={() => console.log(context.state)}//handleSubmit
+          onClick={() => handleSubmit(form, formConfigurations, context)}
         >SUBMIT
         </Button>
       </Space>
