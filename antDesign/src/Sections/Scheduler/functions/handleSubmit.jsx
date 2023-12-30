@@ -24,7 +24,7 @@ const createSecheduler = async (infoScheduler) => {
       return infoResponse
     case 400:
       console.log("Error 400 during creation of scheduler!")
-      if (infoResponse['error'] == 100) throw new TypeError('UNIQUE constraint failed', infoResponse['msg']);
+      if (infoResponse['error'] == 100) throw new TypeError('error:100', infoResponse['msg']);
     default:
       throw new Error('unknown error', `status : ${response.status}`)
   }
@@ -69,12 +69,13 @@ export const handleSubmit = async (form, formConfigurations, ctx) => {
   const context = ctx
   context.dispatch(DataManager.setObs(formConfigurations.getFieldValue('description_scheduler')))
   const data = new FormatData(form.getFieldsValue()).getDataListOfWorkers();
-  const response = await createFormToSend(context.state.infoScheduler, data);
+  try {
+    const response = await createFormToSend(context.state.infoScheduler, data);
     if (response === 'status_ok') {
       console.log('Scheduler registered!');
       window.alert('Scheduler registered!');
-    } else {
-      window.alert('Save Scheduler fail');
-      throw new Error('Save Scheduler fail');
     }
+  } catch (error) {
+    window.alert(`${error.message}\nJA EXISTE ESSE SCHEDULER NO BANCO.`);
+  }
 }
