@@ -7,7 +7,6 @@ export const checkDuplicate = (data)=>{
         if(isExist){
             countDuplicated[matServidor.toString()] = countDuplicated[matServidor.toString()] + 1;
             wkIdDuplicated.push(wk.id_WK)
-            console.log(wk.id_WK)
         }else{
             countDuplicated[matServidor.toString()] = 1;
         }
