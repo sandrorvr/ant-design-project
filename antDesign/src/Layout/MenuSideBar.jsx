@@ -12,13 +12,21 @@ const ItensSideBar = [
   getItem(<Link to='/schedule/ew'>End Week</Link>, '2', <DesktopOutlined />),
   getItem('User', 'sub1', <UserOutlined />, [
     getItem(<Link to='/create_user'>Create</Link>, '3', <UserOutlined />),
-    getItem(<Link to='/dayoff'>Day Off</Link>, '4', <DesktopOutlined />),
+    getItem(<Link to='/update_user'>Update Data</Link>, '4', <DesktopOutlined />),
+    getItem(<Link to='/dayoff'>Day Off</Link>, '5', <DesktopOutlined />),
+    getItem(<Link to='/absence'>Absence</Link>, '6', <DesktopOutlined />),
   ]),
   getItem('Schedule', 'sub2', <TeamOutlined />, [
-    getItem(<Link to='/create_user'>Monthly</Link>, '5', <UserOutlined />),
-    getItem(<Link to='/dayoff'>End Week</Link>, '6', <DesktopOutlined />),
+    getItem(<Link to='/schedule/ew'>Create</Link>, '7', <UserOutlined />),
+    getItem(<Link to='#'>Edit</Link>, '8', <UserOutlined />),
+    getItem(<Link to='#'>View</Link>, '9', <UserOutlined />),
   ]),
-  getItem('Files', '9', <FileOutlined />),
+  getItem(<Link to='/absence'>Change</Link>, '10', <UserOutlined />),
+  getItem('OSO', 'sub3', <TeamOutlined />, [
+    getItem(<Link to='#'>Create</Link>, '11', <UserOutlined />),
+    getItem(<Link to='#'>Edit</Link>, '12', <UserOutlined />),
+    getItem(<Link to='#'>View</Link>, '13', <UserOutlined />),
+  ]),
 ];
 
 export const MenuSideBar = () =>{
